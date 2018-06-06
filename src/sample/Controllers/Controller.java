@@ -1,4 +1,4 @@
-package sample;
+package sample.Controllers;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -7,7 +7,10 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import sample.Animals.Animal;
+import sample.PenType;
 import sample.Pens.Pen;
+import sample.ZooKeeper;
+import sample.ZooManager;
 
 import java.util.ArrayList;
 
@@ -38,7 +41,7 @@ public class Controller{
     private ChoiceBox<Pen> Pens;
 
     @FXML
-    private ChoiceBox<PenType> PenType;
+    private ChoiceBox<sample.PenType> PenType;
 
     @FXML
     private ChoiceBox<PenType> PenType2;
