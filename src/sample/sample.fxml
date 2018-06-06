@@ -1,15 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.String?>
-<?import javafx.collections.FXCollections?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
-<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-<TabPane fx:controller="sample.Controller" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1">
+<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
   <tabs>
     <Tab text="Home">
       <content>
@@ -18,37 +17,46 @@
     </Tab>
     <Tab text="Animals">
       <content>
-        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="541.0" prefWidth="887.0">
+                  <ChoiceBox fx:id="Animals" layoutX="400.0" layoutY="28.0" onMousePressed="#displayChoicesForAnimals" prefWidth="150.0" />
+            <TextArea fx:id="screenForAnimals" editable="false" layoutX="165.0" layoutY="123.0" prefHeight="328.0" prefWidth="671.0">
+                  <font>
+                     <Font size="15.0" />
+                  </font></TextArea>
+            <Button fx:id="submitAnimal" layoutX="440.0" layoutY="74.0" mnemonicParsing="false" onAction="#displayValuesForAnimals" text="Submit" />
+               <Button fx:id="addAnimal" layoutX="449.0" layoutY="543.0" mnemonicParsing="false" onAction="#addAnimal" prefHeight="110.0" prefWidth="107.0" text="Add Animal" />
+               <TextArea fx:id="spaceNeeded" layoutX="228.0" layoutY="479.0" prefHeight="42.0" prefWidth="185.0" promptText="Enter space needed" />
+               <TextArea fx:id="animalType" layoutX="227.0" layoutY="534.0" prefHeight="43.0" prefWidth="187.0" promptText="Enter Animal type" />
+               <ChoiceBox fx:id="PenType" layoutX="229.0" layoutY="598.0" onMousePressed="#displayChoicesForPenType" prefHeight="36.0" prefWidth="180.0" />
+               <ChoiceBox fx:id="PenType2" layoutX="229.0" layoutY="656.0" onMousePressed="#displayChoicesForPenType" prefHeight="36.0" prefWidth="180.0" />
+               <TextArea fx:id="waterSpaceNeeded" layoutX="427.0" layoutY="479.0" prefHeight="42.0" prefWidth="185.0" promptText="Enter water volume needed" />
+        </AnchorPane>
       </content>
     </Tab>
       <Tab text="Zoo Keepers">
           <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" >
-
-               <children>
-                  <!--<ChoiceBox layoutX="37.0" layoutY="47.0" prefWidth="150.0" />-->
-                   <ChoiceBox fx:id="ZooKeeper" layoutX="232.0" layoutY="14.0" onAction="#displayChoices">
-                       <!--<items>-->
-                           <!--<FXCollections fx:factory="observableArrayList"  >-->
-                               <!--<String fx:value="farhad" />-->
-                               <!--<String fx:value="hardip" />-->
-                               <!--<String fx:value="alex" />-->
-                               <!--<String fx:value="alan" />-->
-                           <!--</FXCollections>-->
-                       <!--</items>-->
-                   </ChoiceBox>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                   <ChoiceBox fx:id="ZooKeepers" layoutX="398.0" layoutY="25.0" onMousePressed="#displayChoicesForZooKeepers" prefHeight="27.0" prefWidth="166.0" />
                    <!--<Button layoutX="256.0" layoutY="65.0" mnemonicParsing="false" onAction="#displayValue" text="Submit" />-->
-                  <TextField fx:id="screen" layoutX="124.0" layoutY="121.0" prefHeight="195.0" prefWidth="352.0" />
-                  <Button fx:id="submitKeeper" layoutX="256.0" layoutY="74.0" mnemonicParsing="false" onAction="#displayValue" text="Button" />
-
-               </children>
-
+                  <TextArea fx:id="screen" editable="false" layoutX="167.0" layoutY="122.0" prefHeight="378.0" prefWidth="628.0">
+                  <font>
+                     <Font size="20.0" />
+                  </font></TextArea>
+                  <Button fx:id="submitKeeper" layoutX="450.0" layoutY="74.0" mnemonicParsing="false" onAction="#displayValuesForZooKeepers" text="Submit" />
+               <ChoiceBox fx:id="ZooKeeperPenType" layoutX="398.0" layoutY="526.0" onMousePressed="#displayChoicesForPenType" prefWidth="150.0" />
+               <ChoiceBox fx:id="ZooKeeperPenType2" layoutX="398.0" layoutY="593.0" onMousePressed="#displayChoicesForPenType" prefWidth="150.0" />
+               <Button fx:id="changePenType" layoutX="586.0" layoutY="526.0" mnemonicParsing="false" onAction="#changePenType" prefHeight="99.0" prefWidth="145.0" text="Change pen type" />
               </AnchorPane>
           </content>
       </Tab>
       <Tab text="Pens">
           <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+               <children>
+                  <ChoiceBox fx:id="Pens" layoutX="393.0" layoutY="42.0" onMousePressed="#displayChoicesForPens" prefWidth="150.0" />
+                  <TextArea fx:id="screenForPens" layoutX="198.0" layoutY="135.0" prefHeight="481.0" prefWidth="604.0" />
+                  <Button fx:id="submitPen" layoutX="426.0" layoutY="91.0" mnemonicParsing="false" onAction="#displayValuesForPens" prefHeight="24.0" prefWidth="85.0" text="Submit" />
+               </children></AnchorPane>
           </content>
       </Tab>
   </tabs>

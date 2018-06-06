@@ -1,6 +1,5 @@
 package sample;
 
-import java.util.ArrayList;
 
 import java.util.ArrayList;
 
@@ -15,7 +14,7 @@ public class ZooKeeper {
 
     @Override
     public String toString() {
-        return this.name + this.pensResponsibleFor;
+        return this.name ;
     }
 
     public String getName(){
@@ -23,6 +22,9 @@ public class ZooKeeper {
     }
     public ArrayList<PenType> getPensResponsibleFor(){
         return this.pensResponsibleFor;
+    }
+    public void setPensResponsibleFor( int index, PenType penType){
+        this.pensResponsibleFor.set(index, penType);
     }
 
 }

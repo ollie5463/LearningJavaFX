@@ -10,9 +10,12 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
+        ZooManager.createZooKeepers();
+        ZooManager.createDefaultAnimals();
+        ZooManager.createDefaultPens();
         Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
         primaryStage.setTitle("Zoo Management Software");
-        primaryStage.setScene(new Scene(root, 600, 600));
+        primaryStage.setScene(new Scene(root, 1000, 800));
         primaryStage.show();
     }
 
