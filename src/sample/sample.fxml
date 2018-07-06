@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controllers.Controller">
   <tabs>
     <Tab text="Home">
       <content>
@@ -18,18 +18,18 @@
     <Tab text="Animals">
       <content>
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="541.0" prefWidth="887.0">
-                  <ChoiceBox fx:id="Animals" layoutX="400.0" layoutY="28.0" onMousePressed="#displayChoicesForAnimals" prefWidth="150.0" />
-            <TextArea fx:id="screenForAnimals" editable="false" layoutX="165.0" layoutY="123.0" prefHeight="328.0" prefWidth="671.0">
+                  <ChoiceBox fx:id="Animals" layoutX="646.0" layoutY="23.0" onMousePressed="#displayChoicesForAnimals" prefWidth="150.0" />
+            <TextArea fx:id="screenForAnimals" editable="false" layoutX="503.0" layoutY="118.0" prefHeight="556.0" prefWidth="435.0">
                   <font>
                      <Font size="15.0" />
                   </font></TextArea>
-            <Button fx:id="submitAnimal" layoutX="440.0" layoutY="74.0" mnemonicParsing="false" onAction="#displayValuesForAnimals" text="Submit" />
-               <Button fx:id="addAnimal" layoutX="449.0" layoutY="543.0" mnemonicParsing="false" onAction="#addAnimal" prefHeight="110.0" prefWidth="107.0" text="Add Animal" />
-               <TextArea fx:id="spaceNeeded" layoutX="228.0" layoutY="479.0" prefHeight="42.0" prefWidth="185.0" promptText="Enter space needed" />
-               <TextArea fx:id="animalType" layoutX="227.0" layoutY="534.0" prefHeight="43.0" prefWidth="187.0" promptText="Enter Animal type" />
-               <ChoiceBox fx:id="PenType" layoutX="229.0" layoutY="598.0" onMousePressed="#displayChoicesForPenType" prefHeight="36.0" prefWidth="180.0" />
-               <ChoiceBox fx:id="PenType2" layoutX="229.0" layoutY="656.0" onMousePressed="#displayChoicesForPenType" prefHeight="36.0" prefWidth="180.0" />
-               <TextArea fx:id="waterSpaceNeeded" layoutX="427.0" layoutY="479.0" prefHeight="42.0" prefWidth="185.0" promptText="Enter water volume needed" />
+            <Button fx:id="submitAnimal" layoutX="690.0" layoutY="70.0" mnemonicParsing="false" onAction="#displayValuesForAnimals" text="Submit" />
+               <Button fx:id="addAnimal" layoutX="262.0" layoutY="148.0" mnemonicParsing="false" onAction="#addAnimal" prefHeight="110.0" prefWidth="107.0" text="Add Animal" />
+               <TextArea fx:id="spaceNeeded" layoutX="41.0" layoutY="84.0" prefHeight="42.0" prefWidth="185.0" promptText="Enter space needed" />
+               <TextArea fx:id="animalType" layoutX="40.0" layoutY="139.0" prefHeight="43.0" prefWidth="187.0" promptText="Enter Animal type" />
+               <ChoiceBox fx:id="PenType" layoutX="42.0" layoutY="203.0" onMousePressed="#displayChoicesForPenType" prefHeight="36.0" prefWidth="180.0" />
+               <ChoiceBox fx:id="PenType2" layoutX="42.0" layoutY="261.0" onMousePressed="#displayChoicesForPenType" prefHeight="36.0" prefWidth="180.0" />
+               <TextArea fx:id="waterSpaceNeeded" layoutX="240.0" layoutY="84.0" prefHeight="42.0" prefWidth="185.0" promptText="Enter water volume needed" />
         </AnchorPane>
       </content>
     </Tab>
@@ -38,13 +38,13 @@
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                    <ChoiceBox fx:id="ZooKeepers" layoutX="398.0" layoutY="25.0" onMousePressed="#displayChoicesForZooKeepers" prefHeight="27.0" prefWidth="166.0" />
                    <!--<Button layoutX="256.0" layoutY="65.0" mnemonicParsing="false" onAction="#displayValue" text="Submit" />-->
-                  <TextArea fx:id="screen" editable="false" layoutX="167.0" layoutY="122.0" prefHeight="378.0" prefWidth="628.0">
+                  <TextArea fx:id="screenForZooKeepers" editable="false" layoutX="167.0" layoutY="122.0" prefHeight="378.0" prefWidth="628.0">
                   <font>
                      <Font size="20.0" />
                   </font></TextArea>
                   <Button fx:id="submitKeeper" layoutX="450.0" layoutY="74.0" mnemonicParsing="false" onAction="#displayValuesForZooKeepers" text="Submit" />
-               <ChoiceBox fx:id="ZooKeeperPenType" layoutX="398.0" layoutY="526.0" onMousePressed="#displayChoicesForPenType" prefWidth="150.0" />
-               <ChoiceBox fx:id="ZooKeeperPenType2" layoutX="398.0" layoutY="593.0" onMousePressed="#displayChoicesForPenType" prefWidth="150.0" />
+               <ChoiceBox fx:id="ZooKeeperPenType" layoutX="398.0" layoutY="526.0" onMousePressed="#displayChoicesForPenTypeForZooKeepers" prefWidth="150.0" />
+               <ChoiceBox fx:id="ZooKeeperPenType2" layoutX="398.0" layoutY="593.0" onMousePressed="#displayChoicesForPenTypeForZooKeepers" prefWidth="150.0" />
                <Button fx:id="changePenType" layoutX="586.0" layoutY="526.0" mnemonicParsing="false" onAction="#changePenType" prefHeight="99.0" prefWidth="145.0" text="Change pen type" />
               </AnchorPane>
           </content>
