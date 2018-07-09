@@ -68,17 +68,68 @@ public class Controller{
         penController = new PenController();
     }
 
+    // Zoo keeper controller stuff
+
     @FXML
     private void displayChoicesForZooKeepers(MouseEvent mouseEvent) {
-        zooKeeperController.displayChoicesForKeepers(ZooManager.getZooKeepers(), ZooKeepers);
+        zooKeeperController.displayChoicesForKeepers(ZooKeepers);
     }
 
     @FXML
     private void displayValuesForZooKeepers(ActionEvent actionEvent){
-        ZooKeeper chosenZooKeeper = ZooKeepers.getValue();
-        zooKeeperController.displayValuesForZooKeepers(2, getZooKeeper(chosenZooKeeper), screenForZooKeepers);
+        zooKeeperController.displayValuesForZooKeepers(2, ZooKeepers, screenForZooKeepers);
     }
 
+    @FXML
+    private void displayChoicesForPenTypeForZooKeepers(MouseEvent mouseEvent){
+        zooKeeperController.displayChoicesForPenType(mouseEvent, ZooKeeperPenType, ZooKeeperPenType2);
+    }
+
+    @FXML
+    private void changePenType(ActionEvent actionEvent) {
+        zooKeeperController.changePenTypes(ZooKeeperPenType, ZooKeeperPenType2, ZooKeepers);
+        this.displayValuesForZooKeepers(actionEvent);
+    }
+    // end
+    // Pen controller stuff
+
+    //    @Todo
+    @FXML
+    private void displayChoicesForPens(MouseEvent mouseEvent) {
+        ArrayList<Pen> pens = ZooManager.getPens();
+        ObservableList listOfPens = FXCollections.observableArrayList();
+
+        for(Pen pen : pens){
+            listOfPens.add(pen);
+        }
+        Pens.setItems(listOfPens);
+    }
+
+    //    @Todo
+    @FXML
+    private void displayValuesForPens(ActionEvent actionEvent){
+        Pen chosenPen = Pens.getValue();
+        try{
+            Pen pen = ZooManager.getPen(chosenPen);
+            screenForPens.setPrefRowCount(4);
+            screenForPens.setText("Pen info for: " + pen + "\n\n"
+                    + "Width: " + pen.getWidth() + "\n\n"
+                    + "Length: " + pen.getLength() + "\n\n"
+                    + "Temp: " + pen.getTemp()
+            );
+        }
+        catch(Throwable zooKeeperException){
+
+        }
+    }
+
+    // end
+    // Animals controller stuff
+
+    @FXML
+    private void displayChoicesForPenType(MouseEvent mouseEvent) {
+        penController.displayChoicesForPenType(mouseEvent, ZooKeeperPenType, ZooKeeperPenType2);
+    }
     //    @Todo
     @FXML
     private void displayChoicesForAnimals(MouseEvent mouseEvent) {
@@ -121,34 +172,6 @@ public class Controller{
         animalType.clear();
         spaceNeeded.clear();
         waterSpaceNeeded.clear();
-    }
-
-    @FXML
-    private void displayChoicesForPenTypeForZooKeepers(MouseEvent mouseEvent){
-        zooKeeperController.displayChoicesForPenType(mouseEvent, ZooKeeperPenType, ZooKeeperPenType2);
-    }
-    //    @Todo Pen type controller
-    @FXML
-    private void displayChoicesForPenType(MouseEvent mouseEvent) {
-        String source = ((ChoiceBox) mouseEvent.getSource()).idProperty().getValue();
-        switch (source) {
-            case "PenType":
-                PenType.setItems(FXCollections.observableArrayList(
-                        DRY,
-                        PETTING,
-                        AQUARIUM,
-                        AVIARY,
-                        PARTWATERPARTDRY));
-                break;
-            case "PenType2":
-                PenType2.setItems(FXCollections.observableArrayList(
-                        DRY,
-                        PETTING,
-                        AQUARIUM,
-                        AVIARY,
-                        PARTWATERPARTDRY));
-                break;
-        }
     }
 
     //    @Todo
@@ -204,51 +227,9 @@ public class Controller{
         return animalType.getText();
     }
 
-    @FXML
-    private void changePenType(ActionEvent actionEvent) {
-        zooKeeperController.changePenTypes(ZooKeeperPenType, ZooKeeperPenType2, ZooKeepers);
-        this.displayValuesForZooKeepers(actionEvent);
-    }
 
-    //    @Todo
-    @FXML
-    private void displayChoicesForPens(MouseEvent mouseEvent) {
-        ArrayList<Pen> pens = ZooManager.getPens();
-        ObservableList listOfPens = FXCollections.observableArrayList();
 
-        for(Pen pen : pens){
-            listOfPens.add(pen);
-        }
-        Pens.setItems(listOfPens);
-    }
 
-    //    @Todo
-    @FXML
-    private void displayValuesForPens(ActionEvent actionEvent){
-        Pen chosenPen = Pens.getValue();
-        try{
-            Pen pen = ZooManager.getPen(chosenPen);
-            screenForPens.setPrefRowCount(4);
-            screenForPens.setText("Pen info for: " + pen + "\n\n"
-                    + "Width: " + pen.getWidth() + "\n\n"
-                    + "Length: " + pen.getLength() + "\n\n"
-                    + "Temp: " + pen.getTemp()
-            );
-        }
-        catch(Throwable zooKeeperException){
 
-        }
-    }
 
-    //    @Todo
-    private ZooKeeper getZooKeeper(ZooKeeper zooKeeper){
-        try{
-            zooKeeper = ZooManager.getZooKeeper(zooKeeper);
-
-        }
-        catch(Throwable zooKeeperException){
-            System.out.println("That isn't a Zoo Keeper");
-        }
-        return zooKeeper;
-    }
 }

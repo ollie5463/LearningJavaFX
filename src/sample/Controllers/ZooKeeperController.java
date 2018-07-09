@@ -6,23 +6,25 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextArea;
 import sample.PenType;
 import sample.ZooKeeper;
-
+import sample.ZooManager;
 import java.util.ArrayList;
-
 import static sample.PenType.*;
 import static sample.PenType.PARTWATERPARTDRY;
 
 public class ZooKeeperController {
 
-    public void displayChoicesForKeepers(ArrayList<ZooKeeper> zooKeepers, ChoiceBox<ZooKeeper> zooKeeperChoiceBox){
+    public void displayChoicesForKeepers(ChoiceBox<ZooKeeper> zooKeeperChoiceBox){
+        ArrayList<ZooKeeper> zookeepers = ZooManager.getZooKeepers();
         ObservableList listOfZookeepers = FXCollections.observableArrayList();
-        for(ZooKeeper zooKeeper : zooKeepers){
+        for(ZooKeeper zooKeeper : zookeepers){
             listOfZookeepers.add(zooKeeper);
         }
         zooKeeperChoiceBox.setItems(listOfZookeepers);
     }
 
-    public void displayValuesForZooKeepers(int rowCount, ZooKeeper zooKeeper, TextArea screenForZooKeepers) {
+    public void displayValuesForZooKeepers(int rowCount, ChoiceBox<ZooKeeper> zooKeepers, TextArea screenForZooKeepers) {
+        ZooKeeper chosenZooKeeper = zooKeepers.getValue();
+        ZooKeeper zooKeeper = getZooKeeper(chosenZooKeeper);
         screenForZooKeepers.setPrefRowCount(rowCount);
         screenForZooKeepers.setText("Zoo keeper info for: "+ zooKeeper + "\n\n"
                     + "Pens responsible for: " + zooKeeper.getPensResponsibleFor().toString()
@@ -63,5 +65,16 @@ public class ZooKeeperController {
                         PARTWATERPARTDRY));
                 break;
         }
+    }
+
+    private ZooKeeper getZooKeeper(ZooKeeper zooKeeper){
+        try{
+            zooKeeper = ZooManager.getZooKeeper(zooKeeper);
+
+        }
+        catch(Throwable zooKeeperException){
+            System.out.println("That isn't a Zoo Keeper");
+        }
+        return zooKeeper;
     }
 }
