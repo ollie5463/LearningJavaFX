@@ -1,7 +1,7 @@
-package sample.Pens.PenInstances;
+package zoo.Pens.PenInstances;
 
-import sample.PenType;
-import sample.Pens.Pen;
+import zoo.PenType;
+import zoo.Pens.Pen;
 
 public class Aviary extends Pen {
     public Aviary(int length, int width, int height, int temp) {

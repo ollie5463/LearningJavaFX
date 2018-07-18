@@ -1,4 +1,4 @@
-package sample.Controllers;
+package zoo.Controllers;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -6,15 +6,12 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
-import sample.Animals.Animal;
-import sample.PenType;
-import sample.Pens.Pen;
-import sample.ZooKeeper;
-import sample.ZooManager;
+import zoo.Animals.Animal;
+import zoo.PenType;
+import zoo.ZooKeeper;
+import zoo.ZooManager;
 
 import java.util.ArrayList;
-
-import static sample.PenType.*;
 
 
 public class Controller{
@@ -38,10 +35,10 @@ public class Controller{
     private ChoiceBox<Animal> Animals;
 
     @FXML
-    private ChoiceBox<Pen> Pens;
+    private ChoiceBox<String> Pens;
 
     @FXML
-    private ChoiceBox<sample.PenType> PenType;
+    private ChoiceBox<zoo.PenType> PenType;
 
     @FXML
     private ChoiceBox<PenType> PenType2;
@@ -66,6 +63,11 @@ public class Controller{
         zooKeeperController = new ZooKeeperController();
         animalsController = new AnimalsController();
         penController = new PenController();
+    }
+
+    @FXML
+    public void initialize(){
+
     }
 
     // Zoo keeper controller stuff
@@ -93,34 +95,33 @@ public class Controller{
     // end
     // Pen controller stuff
 
-    //    @Todo
+    //    @Todo -- displays the options for which pen you want to pick
     @FXML
     private void displayChoicesForPens(MouseEvent mouseEvent) {
-        ArrayList<Pen> pens = ZooManager.getPens();
-        ObservableList listOfPens = FXCollections.observableArrayList();
-
-        for(Pen pen : pens){
-            listOfPens.add(pen);
-        }
-        Pens.setItems(listOfPens);
+        penController.displayChoicesForPens(Pens);
     }
 
     //    @Todo
     @FXML
     private void displayValuesForPens(ActionEvent actionEvent){
-        Pen chosenPen = Pens.getValue();
-        try{
-            Pen pen = ZooManager.getPen(chosenPen);
-            screenForPens.setPrefRowCount(4);
-            screenForPens.setText("Pen info for: " + pen + "\n\n"
-                    + "Width: " + pen.getWidth() + "\n\n"
-                    + "Length: " + pen.getLength() + "\n\n"
-                    + "Temp: " + pen.getTemp()
-            );
-        }
-        catch(Throwable zooKeeperException){
+//        penController.displayChoicesForPens(Pens);
+//        String chosenPen = Pens.getValue();
+//        try
+//        ZooManager.getPen(chosenPen);
 
-        }
+//        Pen chosenPen = Pens.getValue();
+//        try{
+//            Pen pen = ZooManager.getPen(chosenPen);
+//            screenForPens.setPrefRowCount(4);
+//            screenForPens.setText("Pen info for: " + pen + "\n\n"
+//                    + "Width: " + pen.getWidth() + "\n\n"
+//                    + "Length: " + pen.getLength() + "\n\n"
+//                    + "Temp: " + pen.getTemp()
+//            );
+//        }
+//        catch(Throwable zooKeeperException){
+//
+//        }
     }
 
     // end

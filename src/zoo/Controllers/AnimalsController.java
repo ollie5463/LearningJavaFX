@@ -1,4 +1,4 @@
-package sample.Controllers;
+package zoo.Controllers;
 
 public class AnimalsController {
 }

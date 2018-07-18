@@ -1,8 +1,8 @@
-package sample.Pens.PenInstances;
+package zoo.Pens.PenInstances;
 
-import sample.Animals.Animal;
-import sample.PenType;
-import sample.Pens.Pen;
+import zoo.Animals.Animal;
+import zoo.PenType;
+import zoo.Pens.Pen;
 
 public class PartWaterPartDryPen extends Pen {
     private int availableWaterVolume;

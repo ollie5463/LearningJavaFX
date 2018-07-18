@@ -1,7 +1,7 @@
-package sample.Pens;
+package zoo.Pens;
 
-import sample.Animals.Animal;
-import sample.PenType;
+import zoo.Animals.Animal;
+import zoo.PenType;
 
 import java.util.ArrayList;
 
@@ -13,9 +13,11 @@ public class  Pen {
     protected int noOfAnimals = 0;
     protected int length, width, temp;
     protected int availableSpace;
+//    protected String penName;
 
 
     public Pen(PenType penType, int length, int width, int temp) {
+//        this.penName = penName;
         this.length = length;
         this.width = width;
         this.temp = temp;

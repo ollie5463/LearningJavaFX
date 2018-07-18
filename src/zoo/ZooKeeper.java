@@ -1,4 +1,4 @@
-package sample;
+package zoo;
 
 
 import java.util.ArrayList;
@@ -7,7 +7,7 @@ public class ZooKeeper {
     private String name;
     private ArrayList<PenType> pensResponsibleFor = new ArrayList<>();
 
-    ZooKeeper(String name, ArrayList<PenType> pensResponsibleFor){
+    public ZooKeeper(String name, ArrayList<PenType> pensResponsibleFor){
         this.name = name;
         this.pensResponsibleFor = pensResponsibleFor;
     }

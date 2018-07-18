@@ -1,6 +1,6 @@
-package sample.Animals;
+package zoo.Animals;
 
-import sample.PenType;
+import zoo.PenType;
 
 
 import java.util.ArrayList;

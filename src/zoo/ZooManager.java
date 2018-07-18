@@ -1,8 +1,9 @@
-package sample;
+package zoo;
 
-import sample.Animals.Animal;
-import sample.Pens.Pen;
-import sample.Pens.PenInstances.*;
+import zoo.Animals.Animal;
+import zoo.Pens.Pen;
+import zoo.Pens.PenInstances.*;
+import zoo.Zoo.Zoo;
 
 import java.util.*;
 
@@ -10,28 +11,29 @@ public class ZooManager {
     private static ArrayList<ZooKeeper> zooKeepers = new ArrayList<>();
     private static ArrayList<Animal> animals = new ArrayList<>();
     private static ArrayList<Pen> pens = new ArrayList<>();
+    private static Zoo currentZoo;
 
 
-    public static void createZooKeepers(){
+//    public static void createZooKeepers(){
+//
+//        createZooKeeper("farhad", PenType.AQUARIUM, PenType.AVIARY);
+//        createZooKeeper("hardip", PenType.DRY, PenType.AVIARY);
+//        createZooKeeper("alan", PenType.DRY, PenType.PETTING);
+//        createZooKeeper("alex", PenType.AQUARIUM, PenType.PARTWATERPARTDRY);
+//    }
 
-        createZooKeeper("farhad", PenType.AQUARIUM, PenType.AVIARY);
-        createZooKeeper("hardip", PenType.DRY, PenType.AVIARY);
-        createZooKeeper("alan", PenType.DRY, PenType.PETTING);
-        createZooKeeper("alex", PenType.AQUARIUM, PenType.PARTWATERPARTDRY);
-    }
+//    public static void createDefaultAnimals(){
+//        addAnimal("dog", PenType.DRY, PenType.PETTING, 50);
+//        addAnimal("cat", PenType.DRY, PenType.PETTING, 51);
+//    }
 
-    public static void createDefaultAnimals(){
-        addAnimal("dog", PenType.DRY, PenType.PETTING, 50);
-        addAnimal("cat", PenType.DRY, PenType.PETTING, 51);
-    }
-
-    public static void createDefaultPens() {
-        createPen(PenType.DRY, 50,50,25);
-        createPen(PenType.PETTING, 60,60,25);
-        createPen(50,50,25,100);
-        createPen(PenType.AQUARIUM, 100, 100, 30, 10000);
-        createPen(PenType.PARTWATERPARTDRY, 70, 70, 25, 500);
-    }
+//    public static void createDefaultPens() {
+//        createPen(PenType.DRY, 50,50,25);
+//        createPen(PenType.PETTING, 60,60,25);
+//        createPen(50,50,25,100);
+//        createPen(PenType.AQUARIUM, 100, 100, 30, 10000);
+//        createPen(PenType.PARTWATERPARTDRY, 70, 70, 25, 500);
+//    }
 
 
     public static void addAnimal(String name, ArrayList<PenType> penTypes, int spaceNeeded){
@@ -130,5 +132,22 @@ public class ZooManager {
             }
         }
         throw new Throwable();
+    }
+    public static Pen getPen(String penName) throws Throwable{
+        for(Pen pen : pens){
+            if(pen.toString().equals(penName)){
+                return pen;
+            }
+        }
+        throw new Throwable();
+    }
+
+    public static Zoo createDefaultZoo() {
+//        createDefaultAnimals();
+//        createDefaultPens();
+//        createZooKeepers();
+        Zoo zoo = new Zoo(zooKeepers, animals, pens);
+        currentZoo = zoo;
+        return zoo;
     }
 }

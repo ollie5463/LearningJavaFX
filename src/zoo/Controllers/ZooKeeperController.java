@@ -1,15 +1,15 @@
-package sample.Controllers;
+package zoo.Controllers;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextArea;
-import sample.PenType;
-import sample.ZooKeeper;
-import sample.ZooManager;
+import zoo.PenType;
+import zoo.ZooKeeper;
+import zoo.ZooManager;
 import java.util.ArrayList;
-import static sample.PenType.*;
-import static sample.PenType.PARTWATERPARTDRY;
+import static zoo.PenType.*;
+import static zoo.PenType.PARTWATERPARTDRY;
 
 public class ZooKeeperController {
 

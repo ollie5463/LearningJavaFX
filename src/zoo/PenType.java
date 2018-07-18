@@ -1,2 +1,2 @@
-package sample;
+package zoo;
 public enum PenType {DRY, PETTING, PARTWATERPARTDRY, AVIARY, AQUARIUM}
