@@ -33,6 +33,10 @@ public class  Pen {
         return this.penType.toString();
     }
 
+    public PenType getPenType() {
+        return penType;
+    }
+
     public void addNewAnimal(Animal animal) {
         if (isAnimalSuitableForPen(animal) && isEnoughSpace(animal)) {
             System.out.println("its suitable and there is enough space");

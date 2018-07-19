@@ -12,28 +12,29 @@ public class ZooManager {
     private static ArrayList<Animal> animals = new ArrayList<>();
     private static ArrayList<Pen> pens = new ArrayList<>();
     private static Zoo currentZoo;
+    private static Zoo zoo;
 
 
-//    public static void createZooKeepers(){
-//
-//        createZooKeeper("farhad", PenType.AQUARIUM, PenType.AVIARY);
-//        createZooKeeper("hardip", PenType.DRY, PenType.AVIARY);
-//        createZooKeeper("alan", PenType.DRY, PenType.PETTING);
-//        createZooKeeper("alex", PenType.AQUARIUM, PenType.PARTWATERPARTDRY);
-//    }
+    public static void createZooKeepers(){
 
-//    public static void createDefaultAnimals(){
-//        addAnimal("dog", PenType.DRY, PenType.PETTING, 50);
-//        addAnimal("cat", PenType.DRY, PenType.PETTING, 51);
-//    }
+        createZooKeeper("farhad", PenType.AQUARIUM, PenType.AVIARY);
+        createZooKeeper("hardip", PenType.DRY, PenType.AVIARY);
+        createZooKeeper("alan", PenType.DRY, PenType.PETTING);
+        createZooKeeper("alex", PenType.AQUARIUM, PenType.PARTWATERPARTDRY);
+    }
 
-//    public static void createDefaultPens() {
-//        createPen(PenType.DRY, 50,50,25);
+    public static void createDefaultAnimals(){
+        addAnimal("dog", PenType.DRY, PenType.PETTING, 50);
+        addAnimal("cat", PenType.DRY, PenType.PETTING, 51);
+    }
+
+    public static void createDefaultPens() {
+        createPen(PenType.DRY, 50,50,25);
 //        createPen(PenType.PETTING, 60,60,25);
 //        createPen(50,50,25,100);
 //        createPen(PenType.AQUARIUM, 100, 100, 30, 10000);
 //        createPen(PenType.PARTWATERPARTDRY, 70, 70, 25, 500);
-//    }
+    }
 
 
     public static void addAnimal(String name, ArrayList<PenType> penTypes, int spaceNeeded){
@@ -142,12 +143,27 @@ public class ZooManager {
         throw new Throwable();
     }
 
-    public static Zoo createDefaultZoo() {
-//        createDefaultAnimals();
-//        createDefaultPens();
-//        createZooKeepers();
+    public static void createDefaultZoo() {
+        createDefaultAnimals();
+        createDefaultPens();
+        createZooKeepers();
         Zoo zoo = new Zoo(zooKeepers, animals, pens);
         currentZoo = zoo;
-        return zoo;
+//        return zoo;
+    }
+
+//    public static void saveZoo(Zoo zoo){
+//        currentZoo = zoo;
+//    }
+
+    public static void loadUpZoo(Zoo zoo){
+        currentZoo = zoo;
+        zooKeepers = zoo.getZooKeepers();
+        animals = zoo.getAnimals();
+        pens = zoo.getPens();
+    }
+
+    public static Zoo getZoo() {
+        return currentZoo;
     }
 }

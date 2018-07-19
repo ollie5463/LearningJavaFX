@@ -23,7 +23,7 @@
                   <font>
                      <Font size="15.0" />
                   </font></TextArea>
-            <Button fx:id="submitAnimal" layoutX="690.0" layoutY="70.0" mnemonicParsing="false" onAction="#displayValuesForAnimals" text="Submit" />
+            <Button fx:id="submitAnimal" layoutX="690.0" layoutY="70.0" mnemonicParsing="false" onAction="#displayValuesForAnimals" text="Submit"/>
                <Button fx:id="addAnimal" layoutX="262.0" layoutY="148.0" mnemonicParsing="false" onAction="#addAnimal" prefHeight="110.0" prefWidth="107.0" text="Add Animal" />
                <TextArea fx:id="spaceNeeded" layoutX="41.0" layoutY="84.0" prefHeight="42.0" prefWidth="185.0" promptText="Enter space needed" />
                <TextArea fx:id="animalType" layoutX="40.0" layoutY="139.0" prefHeight="43.0" prefWidth="187.0" promptText="Enter Animal type" />
