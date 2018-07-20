@@ -7,8 +7,8 @@ import zoo.Pens.Pen;
 public class PartWaterPartDryPen extends Pen {
     private int availableWaterVolume;
 
-    public PartWaterPartDryPen(int length, int width, int waterVolume ,int temp){
-        super(PenType.DRY, length, width, temp);
+    public PartWaterPartDryPen(int length, int width, int waterVolume ,int temp, String penName){
+        super(PenType.PARTWATERPARTDRY, length, width, temp, penName);
         this.availableSpace = length * width;
         this.availableWaterVolume = waterVolume;
     }

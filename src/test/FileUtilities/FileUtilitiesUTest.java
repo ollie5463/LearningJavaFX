@@ -1,23 +1,21 @@
-package test.FileHandlers;
+package test.FileUtilities;
 
 import org.junit.Test;
-import zoo.FileHandlers.FileManager;
+import zoo.FileUtilities.FileUtilities;
 import zoo.Pens.Pen;
-import zoo.Pens.PenInstances.DryPen;
 import zoo.Zoo.Zoo;
-import zoo.ZooManager;
 
 import static org.junit.Assert.assertEquals;
 
-public class FileManagersUTest {
+public class FileUtilitiesUTest {
 
     @Test
     public void saveZooToFile(){
-//        FileManager.createDefaultFiles();/
+//        FileUtilities.createDefaultFiles();
 //        Zoo zoo = ZooManager.createDefaultZoo();
-//        FileManager.writeToFile(zoo);
+//        FileUtilities.writeToFile(zoo);
         try{
-            Zoo zoo1 = FileManager.readFromFile();
+            Zoo zoo1 = FileUtilities.readFromFile();
 //            assertEquals(zoo, zoo1);
 //            Pen pen = zoo.getPens().get(0);
             Pen pen1 = zoo1.getPens().get(0);

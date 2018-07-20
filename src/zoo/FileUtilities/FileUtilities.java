@@ -1,4 +1,4 @@
-package zoo.FileHandlers;
+package zoo.FileUtilities;
 import com.google.gson.Gson;
 import zoo.Zoo.Zoo;
 import java.io.File;
@@ -6,12 +6,10 @@ import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 
-public class FileManager {
+public class FileUtilities {
     static Gson gson = new Gson();
-    public static File file = new File("Zoo.json");
-    static ArrayList<File> files = new ArrayList<>();
+    private static File file = new File("Zoo.json");
 
     public static Zoo readFromFile() {
         try {

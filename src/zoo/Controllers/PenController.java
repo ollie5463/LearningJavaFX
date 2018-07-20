@@ -1,22 +1,27 @@
 package zoo.Controllers;
 
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.input.MouseEvent;
 import zoo.PenType;
+import zoo.Pens.Pen;
+import zoo.ZooManager;
+
+import java.util.ArrayList;
 
 import static zoo.PenType.*;
 
 public class PenController {
 
-    public void displayChoicesForPens(ChoiceBox<String> pens){
-        pens.setItems(FXCollections.observableArrayList(
-                "Dry",
-                "Part water part dry ",
-                "Aquarium",
-                "Petting pen",
-                "Aviary"
-        ));
+    public void displayChoicesForPens(ChoiceBox<String> penChoiceBox){
+        ArrayList<Pen> pens = ZooManager.getPens();
+        ObservableList<String> listOfPens = FXCollections.observableArrayList();
+        for(Pen pen : pens){
+            listOfPens.add(pen.getPenName());
+        }
+            penChoiceBox.setItems(listOfPens);
+
     }
 
     public void displayChoicesForPenType(MouseEvent mouseEvent, ChoiceBox<PenType> zooKeeperPenType, ChoiceBox<PenType> zooKeeperPenType2) {

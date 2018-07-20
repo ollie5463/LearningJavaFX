@@ -15,10 +15,8 @@ public class ZooKeeperController {
 
     public void displayChoicesForKeepers(ChoiceBox<ZooKeeper> zooKeeperChoiceBox){
         ArrayList<ZooKeeper> zookeepers = ZooManager.getZooKeepers();
-        ObservableList listOfZookeepers = FXCollections.observableArrayList();
-        for(ZooKeeper zooKeeper : zookeepers){
-            listOfZookeepers.add(zooKeeper);
-        }
+        ObservableList<ZooKeeper> listOfZookeepers = FXCollections.observableArrayList();
+        listOfZookeepers.addAll(zookeepers);
         zooKeeperChoiceBox.setItems(listOfZookeepers);
     }
 

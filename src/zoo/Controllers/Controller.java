@@ -7,7 +7,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import zoo.Animals.Animal;
-import zoo.FileHandlers.FileManager;
+import zoo.FileUtilities.FileUtilities;
 import zoo.PenType;
 import zoo.Zoo.Zoo;
 import zoo.ZooKeeper;
@@ -69,7 +69,7 @@ public class Controller{
 
     @FXML
     public void initialize(){
-        Zoo zoo = FileManager.readFromFile();
+        Zoo zoo = FileUtilities.readFromFile();
             if(zoo == null){
                 ZooManager.createDefaultZoo();
             }
@@ -78,10 +78,6 @@ public class Controller{
             }
 
     }
-
-
-
-
     // Zoo keeper controller stuff
 
     @FXML
@@ -147,11 +143,8 @@ public class Controller{
     @FXML
     private void displayChoicesForAnimals(MouseEvent mouseEvent) {
         ArrayList<Animal> animals = ZooManager.getAnimals();
-        ObservableList listOfAnimals =FXCollections.observableArrayList();
-
-        for(Animal animal : animals){
-            listOfAnimals.add(animal);
-        }
+        ObservableList<Animal> listOfAnimals =FXCollections.observableArrayList();
+        listOfAnimals.addAll(animals); // @todo need to come back to this
         Animals.setItems(listOfAnimals);
     }
 
@@ -239,8 +232,4 @@ public class Controller{
         }
         return animalType.getText();
     }
-
-
-
-
 }

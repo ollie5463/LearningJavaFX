@@ -5,24 +5,19 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import zoo.FileHandlers.FileManager;
+import zoo.FileUtilities.FileUtilities;
 import zoo.Zoo.Zoo;
-
-
-import static org.junit.Assert.assertEquals;
 
 public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-
-        Zoo zoo = FileManager.readFromFile();
+        Zoo zoo = FileUtilities.readFromFile();
         if(zoo == null){
             ZooManager.createDefaultZoo();
         }
         else{
             ZooManager.loadUpZoo(zoo);
-            System.out.println("Loaded");
         }
         Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
         primaryStage.setTitle("Zoo Management Software");
@@ -32,12 +27,11 @@ public class Main extends Application {
 
     @Override
     public void stop(){
-        FileManager.writeToFile(ZooManager.getZoo());
+        FileUtilities.writeToFile(ZooManager.getZoo());
         System.out.println("saved");
     }
 
     public static void main(String[] args) {
           launch(args);
-
     }
 }

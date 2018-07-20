@@ -5,8 +5,8 @@ import zoo.Pens.Pen;
 
 public class DryPen extends Pen {
 
-    public DryPen(int length, int width, int temp) {
-        super(PenType.DRY, length, width, temp);
+    public DryPen(int length, int width, int temp, String penName) {
+        super(PenType.DRY, length, width, temp, penName);
         this.availableSpace = length * width;
     }
 }

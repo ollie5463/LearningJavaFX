@@ -12,7 +12,6 @@ public class Zoo {
 
     private final ArrayList<ZooKeeper> zooKeepers;
     private final ArrayList<Animal> animals;
-    private  ArrayList<Pen> pens = new ArrayList<>();
     private final ArrayList<Aquarium> aquariums = new ArrayList<>();
     private final ArrayList<DryPen> dryPens= new ArrayList<>();
     private final ArrayList<PartWaterPartDryPen> partWaterPartDryPens= new ArrayList<>();
@@ -57,6 +56,7 @@ public class Zoo {
     }
 
     public ArrayList<Pen> getPens() {
+        ArrayList<Pen> pens = new ArrayList<>();
         pens.addAll(dryPens);
         pens.addAll(aquariums);
         pens.addAll(partWaterPartDryPens);

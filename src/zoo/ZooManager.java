@@ -12,7 +12,6 @@ public class ZooManager {
     private static ArrayList<Animal> animals = new ArrayList<>();
     private static ArrayList<Pen> pens = new ArrayList<>();
     private static Zoo currentZoo;
-    private static Zoo zoo;
 
 
     public static void createZooKeepers(){
@@ -29,11 +28,11 @@ public class ZooManager {
     }
 
     public static void createDefaultPens() {
-        createPen(PenType.DRY, 50,50,25);
-//        createPen(PenType.PETTING, 60,60,25);
-//        createPen(50,50,25,100);
-//        createPen(PenType.AQUARIUM, 100, 100, 30, 10000);
-//        createPen(PenType.PARTWATERPARTDRY, 70, 70, 25, 500);
+        createPen(PenType.DRY, 50,50,25,"dry pen 1");
+        createPen(PenType.PETTING, 60,60,25, "petting pen 1");
+        createPen(50,50,25,100, "aviary pen 1");
+        createPen(PenType.AQUARIUM, 100, 100, 30, 10000, "aquarium pen 1");
+        createPen(PenType.PARTWATERPARTDRY, 70, 70, 25, 500, "PWPD pen 1");
     }
 
 
@@ -52,43 +51,38 @@ public class ZooManager {
         animals.add(animal);
     }
 
-    public static void createPen(PenType penType, int length, int width, int temp){
+    public static void createPen(PenType penType, int length, int width, int temp, String penName){
 
         switch(penType){
             case PETTING:
-                Pen pettingPen = new PettingPen(length, width, temp);
+                Pen pettingPen = new PettingPen(length, width, temp, penName);
                 pens.add(pettingPen);
                 break;
 
             case DRY:
-                Pen dryPen = new DryPen(length, width, temp);
+                Pen dryPen = new DryPen(length, width, temp, penName);
                 pens.add(dryPen);
                 break;
         }
     }
 
-    public static void createPen(PenType penType, int length, int width, int temp, int waterVolume){
+    public static void createPen(PenType penType, int length, int width, int temp, int waterVolume, String penName){
         switch (penType){
             case PARTWATERPARTDRY:
-                Pen partWaterPartDry = new PartWaterPartDryPen(length, width, waterVolume, temp);
+                Pen partWaterPartDry = new PartWaterPartDryPen(length, width, waterVolume, temp, penName);
                 pens.add(partWaterPartDry);
                 break;
             case AQUARIUM:
-                Pen aquarium = new Aquarium(length, width, waterVolume, temp);
+                Pen aquarium = new Aquarium(length, width, waterVolume, temp, penName);
                 pens.add(aquarium);
                 break;
         }
     }
 
-    public static void createPen(int length, int width, int temp, int height){
-            Pen aviary = new Aviary(length, width, temp, height);
+    public static void createPen(int length, int width, int temp, int height, String penName){
+            Pen aviary = new Aviary(length, width, temp, height, penName);
             pens.add(aviary);
     }
-
-    public static void createDryPen(int length, int width, int temp){
-        DryPen pen = new DryPen(length, width, temp);
-    }
-
 
     private static void createZooKeeper(String name, PenType penType, PenType penType2){
         ZooKeeper zooKeeper = new ZooKeeper(name, new ArrayList<>(){{add(penType);add(penType2);}});
@@ -149,12 +143,7 @@ public class ZooManager {
         createZooKeepers();
         Zoo zoo = new Zoo(zooKeepers, animals, pens);
         currentZoo = zoo;
-//        return zoo;
     }
-
-//    public static void saveZoo(Zoo zoo){
-//        currentZoo = zoo;
-//    }
 
     public static void loadUpZoo(Zoo zoo){
         currentZoo = zoo;
