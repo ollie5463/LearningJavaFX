@@ -9,6 +9,7 @@ import javafx.scene.input.MouseEvent;
 import zoo.Animals.Animal;
 import zoo.FileUtilities.FileUtilities;
 import zoo.PenType;
+import zoo.WeatherManager;
 import zoo.Zoo.Zoo;
 import zoo.ZooKeeper;
 import zoo.ZooManager;
@@ -17,6 +18,9 @@ import java.util.ArrayList;
 
 
 public class Controller{
+
+    @FXML
+    private TextArea screenForWeather;
 
     @FXML
     private TextArea waterSpaceNeeded;
@@ -78,6 +82,23 @@ public class Controller{
             }
 
     }
+
+    @FXML
+    private void getWeather(){
+        WeatherManager weatherManager = new WeatherManager();
+        try {
+            weatherManager.run(this);
+        }
+        catch (Exception e){
+
+        }
+    }
+
+    @FXML
+    public void setWeather(double temperature){
+            screenForWeather.setText("The current temperature is: " + temperature);
+    }
+
     // Zoo keeper controller stuff
 
     @FXML
@@ -232,4 +253,5 @@ public class Controller{
         }
         return animalType.getText();
     }
+
 }

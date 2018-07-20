@@ -28,7 +28,6 @@ public class Main extends Application {
     @Override
     public void stop(){
         FileUtilities.writeToFile(ZooManager.getZoo());
-        System.out.println("saved");
     }
 
     public static void main(String[] args) {
