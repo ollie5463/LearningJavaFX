@@ -12,13 +12,6 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Zoo zoo = FileUtilities.readFromFile();
-        if(zoo == null){
-            ZooManager.createDefaultZoo();
-        }
-        else{
-            ZooManager.loadUpZoo(zoo);
-        }
         Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
         primaryStage.setTitle("Zoo Management Software");
         primaryStage.setScene(new Scene(root, 1000, 800));
