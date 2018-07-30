@@ -14,10 +14,19 @@ import zoo.Zoo.Zoo;
 import zoo.ZooKeeper;
 import zoo.ZooManager;
 
-import java.util.ArrayList;
-
 
 public class Controller{
+
+    public TextArea width;
+    public TextArea length;
+    public TextArea penName;
+    public TextArea heightOrVolume;
+    public TextArea temp;
+    @FXML
+    private Button AddPen;
+
+    @FXML
+    private ChoiceBox<PenType> PenTypeForPen;
 
     @FXML
     private TextArea screenForWeather;
@@ -102,7 +111,7 @@ public class Controller{
     // Zoo keeper controller stuff
 
     @FXML
-    private void displayChoicesForZooKeepers(MouseEvent mouseEvent) {
+    private void displayChoicesForZooKeepers() {
         zooKeeperController.displayChoicesForKeepers(ZooKeepers);
     }
 
@@ -124,33 +133,23 @@ public class Controller{
     // end
     // Pen controller stuff
 
-    //    @Todo -- displays the options for which pen you want to pick
     @FXML
-    private void displayChoicesForPens(MouseEvent mouseEvent) {
+    private void displayChoicesForPens() {
         penController.displayChoicesForPens(Pens);
     }
 
+    @FXML
+    private void displayChoicesForPens2(){
+        penController.displayChoicesForPenType(PenTypeForPen);
+    }
     //    @Todo
     @FXML
-    private void displayValuesForPens(ActionEvent actionEvent){
-//        penController.displayChoicesForPens(Pens);
-//        String chosenPen = Pens.getValue();
-//        try
-//        ZooManager.getPen(chosenPen);
+    private void displayValuesForPens(){
+        penController.displayValuesForPen(Pens, screenForPens, 4);
+    }
 
-//        Pen chosenPen = Pens.getValue();
-//        try{
-//            Pen pen = ZooManager.getPen(chosenPen);
-//            screenForPens.setPrefRowCount(4);
-//            screenForPens.setText("Pen info for: " + pen + "\n\n"
-//                    + "Width: " + pen.getWidth() + "\n\n"
-//                    + "Length: " + pen.getLength() + "\n\n"
-//                    + "Temp: " + pen.getTemp()
-//            );
-//        }
-//        catch(Throwable zooKeeperException){
-//
-//        }
+    public void addPen() {
+        penController.addPen(PenTypeForPen, width, heightOrVolume, length, penName, temp);
     }
 
     // end
@@ -158,100 +157,22 @@ public class Controller{
 
     @FXML
     private void displayChoicesForPenType(MouseEvent mouseEvent) {
-        penController.displayChoicesForPenType(mouseEvent, ZooKeeperPenType, ZooKeeperPenType2);
+        animalsController.displayChoicesForPenType(mouseEvent, PenType, PenType2);
     }
-    //    @Todo
+
     @FXML
-    private void displayChoicesForAnimals(MouseEvent mouseEvent) {
-        ArrayList<Animal> animals = ZooManager.getAnimals();
-        ObservableList<Animal> listOfAnimals =FXCollections.observableArrayList();
-        listOfAnimals.addAll(animals); // @todo need to come back to this
-        Animals.setItems(listOfAnimals);
+    private void displayChoicesForAnimals() {
+        animalsController.displayChoicesForAnimals(Animals);
     }
 
-    //    @Todo
     @FXML
-    private void displayValuesForAnimals(ActionEvent actionEvent){
-        Animal chosenAnimal = Animals.getValue();
-        try {
-            Animal animal = ZooManager.getAnimal(chosenAnimal);
-            screenForAnimals.setPrefRowCount(4);
-            screenForAnimals.setText("Animal info for: " + animal + "\n\n"
-                    +"Space needed for animal: " + animal.getSpaceNeeded() + "\n\n"
-                    +"Suitable pens: " + animal.getSuitablePens() + "\n\n"
-                    +"Water volume needed: " + animal.getWaterVolumeNeeded());
-        }
-        catch(Throwable animalException){
-            screenForAnimals.setText("Please choose an animal from the list at the top of the screen !!!");
-        }
+    private void displayValuesForAnimals(){
+        animalsController.displayValuesForAnimals(Animals , screenForAnimals, 4);
     }
 
-    //    @Todo
+    //    @Todo  BUGGG
     @FXML
-    private void addAnimal(ActionEvent actionEvent){
-        ArrayList<PenType> penTypes = getChosenPenTypes();
-        if( waterSpaceNeeded != null && spaceNeeded != null) {
-            ZooManager.addAnimal(getAnimalType(), penTypes, getSpaceNeeded());
-        }
-        else if(waterSpaceNeeded != null){
-            ZooManager.addAnimal(getAnimalType(), penTypes, getSpaceNeeded(),getWaterSpacedNeeded());
-        }
-        animalType.clear();
-        spaceNeeded.clear();
-        waterSpaceNeeded.clear();
+    private void addAnimal(){
+        animalsController.addAnimal(PenType, PenType2, waterSpaceNeeded, spaceNeeded, screenForAnimals, animalType);
     }
-
-    //    @Todo
-    private ArrayList<PenType> getChosenPenTypes(){
-        try {
-            if (PenType.getValue() == null && PenType2.getValue() == null) {
-                throw new Throwable();
-            }
-        }
-        catch(Throwable PenTypeNotSpecified){
-            screenForAnimals.setText("Pen type not specified");
-        }
-        return new ArrayList<>(){{add(PenType.getValue());add(PenType2.getValue());}};
-    }
-
-    //    @Todo
-    private int getSpaceNeeded(){
-        try{
-            if(spaceNeeded.getText() == null){
-                throw new Throwable();
-            }
-        }
-        catch(Throwable SpaceNeededNotSpecified){
-            screenForAnimals.setText("Please specify space needed for the animal");
-        }
-        return Integer.parseInt(spaceNeeded.getText());
-    }
-
-    //    @Todo
-    private int getWaterSpacedNeeded(){
-        try{
-            if(waterSpaceNeeded.getText() == null){
-                throw new Throwable();
-            }
-        }
-        catch(Throwable waterSpaceNotSpecified){
-            screenForAnimals.setText("please specify a water volume");
-        }
-
-        return Integer.parseInt(waterSpaceNeeded.getText());
-    }
-
-    //    @Todo
-    private String getAnimalType(){
-        try{
-            if (animalType.getText() == null){
-                throw new Throwable();
-            }
-        }
-        catch(Throwable AnimalTypeNotSpecified){
-            screenForAnimals.setText("animal type not specified");
-        }
-        return animalType.getText();
-    }
-
 }

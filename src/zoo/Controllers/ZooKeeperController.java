@@ -4,6 +4,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextArea;
+import javafx.scene.input.MouseEvent;
 import zoo.PenType;
 import zoo.ZooKeeper;
 import zoo.ZooManager;
@@ -42,7 +43,7 @@ public class ZooKeeperController {
         }
     }
 
-    public void displayChoicesForPenType(javafx.scene.input.MouseEvent mouseEvent, ChoiceBox<PenType> zooKeeperPenType, ChoiceBox<PenType> zooKeeperPenType2){
+    public void displayChoicesForPenType(MouseEvent mouseEvent, ChoiceBox<PenType> zooKeeperPenType, ChoiceBox<PenType> zooKeeperPenType2){
         String source = ((ChoiceBox) mouseEvent.getSource()).idProperty().getValue();
 
         switch(source) {

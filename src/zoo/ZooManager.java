@@ -30,9 +30,9 @@ public class ZooManager {
     public static void createDefaultPens() {
         createPen(PenType.DRY, 50,50,25,"dry pen 1");
         createPen(PenType.PETTING, 60,60,25, "petting pen 1");
-        createPen(50,50,25,100, "aviary pen 1");
-        createPen(PenType.AQUARIUM, 100, 100, 30, 10000, "aquarium pen 1");
-        createPen(PenType.PARTWATERPARTDRY, 70, 70, 25, 500, "PWPD pen 1");
+        createPen(PenType.PARTWATERPARTDRY, 100, 100, 30, 10000, "aquarium pen 1");
+        createPen(PenType.AVIARY, 70, 70, "PWPD pen 1", 25, 50);
+        createPen(PenType.AQUARIUM, 70, 70, "PWPD pen 1", 25, 50);
     }
 
 
@@ -67,21 +67,25 @@ public class ZooManager {
     }
 
     public static void createPen(PenType penType, int length, int width, int temp, int waterVolume, String penName){
-        switch (penType){
-            case PARTWATERPARTDRY:
-                Pen partWaterPartDry = new PartWaterPartDryPen(length, width, waterVolume, temp, penName);
-                pens.add(partWaterPartDry);
-                break;
-            case AQUARIUM:
-                Pen aquarium = new Aquarium(length, width, waterVolume, temp, penName);
-                pens.add(aquarium);
-                break;
+        if(penType.equals(PenType.PARTWATERPARTDRY)){
+            Pen partWaterPartDry = new PartWaterPartDryPen(length, width, waterVolume, temp, penName);
+            pens.add(partWaterPartDry);
         }
     }
 
-    public static void createPen(int length, int width, int temp, int height, String penName){
-            Pen aviary = new Aviary(length, width, temp, height, penName);
-            pens.add(aviary);
+    public static void createPen(PenType penType, int length, int width, String penName, int height, int temp){
+        switch(penType){
+            case AQUARIUM:
+                Pen aquarium = new Aquarium(length, width, height, temp, penName);
+                pens.add(aquarium);
+                break;
+
+            case AVIARY:
+                Pen aviary = new Aviary(length, width, temp, height, penName);
+                pens.add(aviary);
+                break;
+        }
+
     }
 
     private static void createZooKeeper(String name, PenType penType, PenType penType2){
@@ -130,7 +134,7 @@ public class ZooManager {
     }
     public static Pen getPen(String penName) throws Throwable{
         for(Pen pen : pens){
-            if(pen.toString().equals(penName)){
+            if(pen.getPenName().equals(penName)){
                 return pen;
             }
         }

@@ -57,9 +57,16 @@
           <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                <children>
-                  <ChoiceBox fx:id="Pens" layoutX="393.0" layoutY="42.0" onMousePressed="#displayChoicesForPens" prefWidth="150.0" />
-                  <TextArea fx:id="screenForPens" layoutX="198.0" layoutY="135.0" prefHeight="481.0" prefWidth="604.0" />
-                  <Button fx:id="submitPen" layoutX="426.0" layoutY="91.0" mnemonicParsing="false" onAction="#displayValuesForPens" prefHeight="24.0" prefWidth="85.0" text="Submit" />
+                  <ChoiceBox fx:id="Pens" layoutX="673.0" layoutY="45.0" onMousePressed="#displayChoicesForPens" prefWidth="150.0" />
+                  <TextArea fx:id="screenForPens" layoutX="576.0" layoutY="134.0" prefHeight="481.0" prefWidth="344.0" />
+                  <Button fx:id="submitPen" layoutX="706.0" layoutY="84.0" mnemonicParsing="false" onAction="#displayValuesForPens" prefHeight="24.0" prefWidth="85.0" text="Submit" />
+                   <Button fx:id="AddPen" layoutX="258.0" layoutY="265.0" mnemonicParsing="false" onAction="#addPen" prefHeight="110.0" prefWidth="107.0" text="Add Pen" />
+                   <TextArea fx:id="penName" layoutX="41.0" layoutY="84.0" prefHeight="42.0" prefWidth="185.0" promptText="Enter pen name" />
+                   <TextArea fx:id="temp" layoutX="241.0" layoutY="200.0" prefHeight="42.0" prefWidth="185.0" promptText="Enter the temperature for the pen" />
+                   <TextArea fx:id="width" layoutX="40.0" layoutY="139.0" prefHeight="43.0" prefWidth="187.0" promptText="Enter width in meters" />
+                   <TextArea fx:id="heightOrVolume" layoutX="240.0" layoutY="139.0" prefHeight="43.0" prefWidth="187.0" promptText="Enter height(aviary or aquarium) or volume in meters(for part water part dry)" />
+                   <ChoiceBox fx:id="PenTypeForPen" layoutX="42.0" layoutY="203.0" onMousePressed="#displayChoicesForPens2" prefHeight="36.0" prefWidth="180.0" />
+                   <TextArea fx:id="length" layoutX="240.0" layoutY="84.0" prefHeight="42.0" prefWidth="185.0" promptText="Enter length in meters" />
                </children></AnchorPane>
           </content>
       </Tab>
