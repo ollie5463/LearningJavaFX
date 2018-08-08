@@ -1,1 +1,1 @@
-# LearningJavaFX
+# Zoo keeper software project

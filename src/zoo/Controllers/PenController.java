@@ -35,8 +35,6 @@ public class PenController {
         String chosenPen = pens.getValue();
         try {
             Pen pen = ZooManager.getPen(chosenPen);
-
-
             switch(pen.getPenType()){
                 case DRY:
                     // lenght + width
@@ -86,7 +84,7 @@ public class PenController {
                             + "Width: " + aquarium.getWidth() + "\n\n"
                             + "Length: " + aquarium.getLength() + "\n\n"
                             + "Height: " + aquarium.getHeight() + "\n\n"
-                            + "Water volume: " + aquarium.getWaterVolume() + "\n\n"
+                            + "Water volume: " + aquarium.getWaterVolumeAvailable() + "\n\n"
                             + "Temp: " + pen.getTemp()
                     );
                     break;
@@ -100,24 +98,23 @@ public class PenController {
         switch(penTypeForPen.getValue()){
             case DRY:
                 // length and width
-                ZooManager.createPen(DRY, getIntFromString(length.getText()), getIntFromString(width.getText()),  getIntFromString(temp.getText()), name.getText());
+                ZooManager.createDryPen(getIntFromString(length.getText()), getIntFromString(width.getText()),  getIntFromString(temp.getText()), name.getText());
                 break;
             case PETTING:
                 // length and width
-                ZooManager.createPen(PETTING, getIntFromString(length.getText()), getIntFromString(width.getText()), getIntFromString(temp.getText()), name.getText());
+                ZooManager.createPettingPen(getIntFromString(length.getText()), getIntFromString(width.getText()),  getIntFromString(temp.getText()), name.getText());
                 break;
             case PARTWATERPARTDRY:
                 // length width and volume
-                int volume = getIntFromString(heightOrVolume.getText());
-                ZooManager.createPen(PARTWATERPARTDRY, getIntFromString(length.getText()), getIntFromString(width.getText()), getIntFromString(temp.getText()), volume , name.getText());
+                ZooManager.createPartWaterPartDryPen(getIntFromString(length.getText()), getIntFromString(width.getText()), getIntFromString(temp.getText()), Integer.parseInt(heightOrVolume.getText()), name.getText());
                 break;
             case AVIARY:
                 // length width and height
-                ZooManager.createPen(AVIARY, getIntFromString(length.getText()), getIntFromString(width.getText()), name.getText(), getIntFromString(heightOrVolume.getText()) , getIntFromString(temp.getText()));
+                ZooManager.createAviary(getIntFromString(length.getText()), getIntFromString(width.getText()), name.getText(), getIntFromString(heightOrVolume.getText()) , getIntFromString(temp.getText()));
                 break;
             case AQUARIUM:
                 //length width height and volume(calculated)
-                ZooManager.createPen(AQUARIUM, getIntFromString(length.getText()), getIntFromString(width.getText()), name.getText(), getIntFromString(heightOrVolume.getText()) , getIntFromString(temp.getText()));
+                ZooManager.createAquarium(getIntFromString(length.getText()), getIntFromString(width.getText()), name.getText(), getIntFromString(heightOrVolume.getText()) , getIntFromString(temp.getText()));
                 break;
         }
         clearPenRequirements(new ArrayList<>(){{add(width);add(heightOrVolume);add(length);add(name);add(temp);}});
@@ -131,5 +128,27 @@ public class PenController {
 
     private int getIntFromString(String stringToBeCasted){
         return Integer.parseInt(stringToBeCasted);
+    }
+
+    public void checkPensAreAssignedToStaff(TextArea screenForUnassignedPens) {
+        ArrayList<Pen> pensNotAssignedToStaff = ZooManager.checkIfPensAreAssignedToStaff();
+        if(!pensNotAssignedToStaff.isEmpty()){
+            screenForUnassignedPens.setText(pensNotAssignedToStaff.toString());
+        }
+        else{
+            screenForUnassignedPens.setText("All pens are assigned to zoo keepers");
+        }
+    }
+
+    public void autoAllocatePens(TextArea screenForUnassignedPens) {
+        ArrayList<Pen> pensNotAssignedToAZooKeeper = ZooManager.getPensNotAssignedToAZooKeeper();
+        if(!pensNotAssignedToAZooKeeper.isEmpty()){
+            for(Pen pen : pensNotAssignedToAZooKeeper){
+                ZooManager.autoAssignPenToZooKeeper(pen);
+            }
+        }
+        else{
+            screenForUnassignedPens.setText("There are no pens to auto allocate");
+        }
     }
 }

@@ -2,48 +2,33 @@ package zoo.Animals;
 
 import zoo.PenType;
 
-
 import java.util.ArrayList;
+import java.util.HashMap;
 
-public class Animal {
-    private PenType currentPen;
+public abstract class Animal {
+    private String currentPen = null;
     private String animalName;
-    private int waterVolumeNeeded;
-    private int spaceNeeded;
-    private ArrayList<PenType> suitablePens = new ArrayList<>();
+    private ArrayList<PenType> suitablePens;
+    private boolean isPredator;
 
-    public Animal(ArrayList<PenType> suitablePens, String animalName, int spaceNeeded){
+    public Animal(ArrayList<PenType> suitablePens, String animalName, boolean isPredator){
         this.suitablePens = suitablePens;
         this.animalName = animalName;
-        this.spaceNeeded = spaceNeeded;
+        this.isPredator = isPredator;
     }
-
-    public Animal(ArrayList<PenType> suitablePens, String animalName, int spaceNeeded, int waterVolumeNeeded){
-        this.suitablePens = suitablePens;
-        this.animalName = animalName;
-        this.spaceNeeded = spaceNeeded;
-        this.waterVolumeNeeded = waterVolumeNeeded;
-    }
-
 
     @Override
-    public String toString() {
-        return this.animalName;
-    }
+    public String toString() { return this.animalName; }
 
-    public int getSpaceNeeded(){
-        return spaceNeeded;
-    }
+    public ArrayList<PenType> getSuitablePens(){ return this.suitablePens; }
 
-    public int getWaterVolumeNeeded(){
-        return waterVolumeNeeded;
-    }
+    public String getName() { return animalName; }
 
-    public ArrayList<PenType> getSuitablePens(){
-        return this.suitablePens;
-    }
+    public String getCurrentPen() { return currentPen; }
 
-    public String getName() {
-        return animalName;
-    }
+    public void setCurrentPen(String currentPen) { this.currentPen = currentPen; }
+
+    abstract public HashMap<String, Integer> getAvailableSpace();
+
+    public boolean isPredator() { return isPredator; }
 }

@@ -1,59 +1,48 @@
 package zoo.Pens.PenInstances;
 
 import zoo.Animals.Animal;
+import zoo.Animals.AnimalClassifications.AmphibiousAnimal;
+import zoo.Exceptions.NotEnoughSpaceException;
+import zoo.Exceptions.NotOfSamePredtoryStatusException;
+import zoo.Exceptions.NotSuitableForPenException;
+import zoo.Exceptions.UIException;
 import zoo.PenType;
 import zoo.Pens.Pen;
 
 public class PartWaterPartDryPen extends Pen {
     private int availableWaterVolume;
+    private int availableDrySpace;
 
     public PartWaterPartDryPen(int length, int width, int waterVolume ,int temp, String penName){
         super(PenType.PARTWATERPARTDRY, length, width, temp, penName);
-        this.availableSpace = length * width;
+        this.availableDrySpace = length * width;
         this.availableWaterVolume = waterVolume;
     }
 
     @Override
-    public void addNewAnimal(Animal animal) {
-        if (isAnimalSuitableForPen(animal) && isEnoughSpace(animal)) {
-            System.out.println("its suitable and there is enough space");
+    public void addNewAnimal(Animal animal) throws UIException {
+        AmphibiousAnimal amphibiousAnimal = (AmphibiousAnimal) animal;
+        if (!isAnimalSuitableForPen(amphibiousAnimal)){
+            throw new NotSuitableForPenException();
+        }
+        else if(!isEnoughSpace(amphibiousAnimal)){
+            throw new NotEnoughSpaceException();
+        }
+        else if(!isAnimalOfSamePredatoryStatus(amphibiousAnimal)){
+            throw new NotOfSamePredtoryStatusException();
+        }
+        else{
+            updatePenForNewAnimal(amphibiousAnimal);
         }
     }
-    @Override
-    protected boolean isEnoughSpace(Animal animal){
-        try {
-            if ((availableSpace - animal.getSpaceNeeded()) < 0 || (availableWaterVolume - animal.getWaterVolumeNeeded()) < 0 ) {
-                throw new Throwable();
-            } else {
-                availableSpace -= animal.getSpaceNeeded();
-                availableWaterVolume -= animal.getWaterVolumeNeeded();
-                this.currentAnimals.add(animal);
-                noOfAnimals++;
-                return true;
-            }
-        }
-        catch (Throwable throwable){
-            System.out.println("there is not enough space to hold this animal, there is "+ availableSpace + " meters squared left of land and "+availableWaterVolume+ " water volume available");
-            return false;
-        }
-    }
-    @Override
-    public void removeAnimal(Animal animal) {
-
-        try {
-            if (noOfAnimals == 0) {
-                throw new Throwable();
-            } else {
-                System.out.println("animal has been removed");
-                noOfAnimals--;
-                availableSpace += animal.getSpaceNeeded();
-                availableWaterVolume += animal.getWaterVolumeNeeded();
-            }
-        } catch (Throwable throwable) {
-            System.out.println("There are no animals to remove");
-        }
+    protected boolean isEnoughSpace(AmphibiousAnimal animal){
+        return ((availableDrySpace - animal.getLandNeeded()) >= 0 || (availableWaterVolume - animal.getWaterNeeded()) >= 0 );
     }
 
+    private void updatePenForNewAnimal(AmphibiousAnimal amphibiousAnimal){
+        availableWaterVolume -= amphibiousAnimal.getWaterNeeded();
+        availableDrySpace -= amphibiousAnimal.getLandNeeded();
+    }
     public int getAvailableWaterVolume(){
         return this.availableWaterVolume;
     }

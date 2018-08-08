@@ -1,76 +1,67 @@
 package zoo.Controllers;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
+import zoo.*;
 import zoo.Animals.Animal;
 import zoo.FileUtilities.FileUtilities;
-import zoo.PenType;
-import zoo.WeatherManager;
 import zoo.Zoo.Zoo;
-import zoo.ZooKeeper;
-import zoo.ZooManager;
+import java.io.IOException;
+import java.util.ArrayList;
 
 
 public class Controller{
 
+    public TextArea ScreenForAssigningAnimals;
+    public TextArea screenForWeather;
+    public TextArea screenForUnassignedAnimals;
+    public Button displayWeather;
+    public TextArea screenForUnassignedPens;
+    public ChoiceBox PredatorOrPrey;
+    public ChoiceBox<Animal> AnimalChoices;
     public TextArea width;
     public TextArea length;
     public TextArea penName;
     public TextArea heightOrVolume;
     public TextArea temp;
-    @FXML
-    private Button AddPen;
+    public Button submitAnimal;
+    public ChoiceBox<String> PenChoices;
+    public Button AddPen;
+    public ChoiceBox<PenType> PenTypeForPen;
+    public TextArea waterSpaceOrAirVolumeNeeded;
+    public TextArea animalType;
+    public TextArea spaceNeeded;
+    public TextArea screenForAnimals;
+    public TextArea screenForZooKeepers;
+    public ChoiceBox<Animal> Animals;
+    public ChoiceBox<String> Pens;
+    public ChoiceBox<zoo.PenType> PenType;
+    public ChoiceBox<PenType> PenType2;
+    public ChoiceBox<String> PossiblePensForZooKeepers;
+    public ChoiceBox<PenType> ZooKeeperPenType2;
+    public TextArea screenForPens;
+    public ChoiceBox<ZooKeeper> ZooKeepers;
 
-    @FXML
-    private ChoiceBox<PenType> PenTypeForPen;
-
-    @FXML
-    private TextArea screenForWeather;
-
-    @FXML
-    private TextArea waterSpaceNeeded;
-
-    @FXML
-    private TextArea animalType;
-
-    @FXML
-    private TextArea spaceNeeded;
-
-    @FXML
-    private TextArea screenForAnimals;
-
-    @FXML
-    private TextArea screenForZooKeepers;
-
-    @FXML
-    private ChoiceBox<Animal> Animals;
-
-    @FXML
-    private ChoiceBox<String> Pens;
-
-    @FXML
-    private ChoiceBox<zoo.PenType> PenType;
-
-    @FXML
-    private ChoiceBox<PenType> PenType2;
-
-    @FXML
-    private ChoiceBox<PenType> ZooKeeperPenType;
-
-    @FXML
-    private ChoiceBox<PenType> ZooKeeperPenType2;
-
-    @FXML
-    private TextArea screenForPens;
-
-    @FXML
-    private ChoiceBox<ZooKeeper> ZooKeepers;
+    public ZooKeeperController getZooKeeperController() {
+        return zooKeeperController;
+    }
 
     private ZooKeeperController zooKeeperController;
+
+    public AnimalsController getAnimalsController() {
+        return animalsController;
+    }
+
+    public PenController getPenController() {
+        return penController;
+    }
+
     private AnimalsController animalsController;
     private PenController penController;
 
@@ -82,6 +73,8 @@ public class Controller{
 
     @FXML
     public void initialize(){
+        // @todo, you need to find a way to only initialise the zoo once because it now does it twice
+        // one when you load the first screen and once when you load the second
         Zoo zoo = FileUtilities.readFromFile();
             if(zoo == null){
                 ZooManager.createDefaultZoo();
@@ -93,7 +86,7 @@ public class Controller{
     }
 
     @FXML
-    private void getWeather(){
+    public void getWeather(){
         WeatherManager weatherManager = new WeatherManager();
         try {
             weatherManager.run(this);
@@ -104,47 +97,37 @@ public class Controller{
     }
 
     @FXML
-    public void setWeather(double temperature){
-            screenForWeather.setText("The current temperature is: " + temperature);
+    public void setWeather(ArrayList<Object> weather){
+        screenForWeather.setText("The current temperature is: " + weather.get(0) + " This was accessed at " + weather.get(1));
     }
 
     // Zoo keeper controller stuff
 
     @FXML
-    private void displayChoicesForZooKeepers() {
+    public void displayChoicesForZooKeepers() {
         zooKeeperController.displayChoicesForKeepers(ZooKeepers);
     }
 
     @FXML
-    private void displayValuesForZooKeepers(ActionEvent actionEvent){
+    public void displayValuesForZooKeepers(ActionEvent actionEvent){
         zooKeeperController.displayValuesForZooKeepers(2, ZooKeepers, screenForZooKeepers);
     }
 
-    @FXML
-    private void displayChoicesForPenTypeForZooKeepers(MouseEvent mouseEvent){
-        zooKeeperController.displayChoicesForPenType(mouseEvent, ZooKeeperPenType, ZooKeeperPenType2);
-    }
 
-    @FXML
-    private void changePenType(ActionEvent actionEvent) {
-        zooKeeperController.changePenTypes(ZooKeeperPenType, ZooKeeperPenType2, ZooKeepers);
-        this.displayValuesForZooKeepers(actionEvent);
-    }
     // end
     // Pen controller stuff
 
     @FXML
-    private void displayChoicesForPens() {
+    public void displayChoicesForPens() {
         penController.displayChoicesForPens(Pens);
     }
 
     @FXML
-    private void displayChoicesForPens2(){
+    public void displayChoicesForPens2(){
         penController.displayChoicesForPenType(PenTypeForPen);
     }
-    //    @Todo
     @FXML
-    private void displayValuesForPens(){
+    public void displayValuesForPens(){
         penController.displayValuesForPen(Pens, screenForPens, 4);
     }
 
@@ -156,23 +139,90 @@ public class Controller{
     // Animals controller stuff
 
     @FXML
-    private void displayChoicesForPenType(MouseEvent mouseEvent) {
+    public void displayChoicesForPenType(MouseEvent mouseEvent) {
         animalsController.displayChoicesForPenType(mouseEvent, PenType, PenType2);
     }
 
     @FXML
-    private void displayChoicesForAnimals() {
+    public void displayChoicesForAnimals() {
         animalsController.displayChoicesForAnimals(Animals);
     }
 
     @FXML
-    private void displayValuesForAnimals(){
+    public void displayValuesForAnimals(){
         animalsController.displayValuesForAnimals(Animals , screenForAnimals, 4);
     }
 
-    //    @Todo  BUGGG
+    //    @Todo  BUG
     @FXML
-    private void addAnimal(){
-        animalsController.addAnimal(PenType, PenType2, waterSpaceNeeded, spaceNeeded, screenForAnimals, animalType);
+    public void addAnimal(){
+        animalsController.addAnimal(PenType, PenType2, waterSpaceOrAirVolumeNeeded, spaceNeeded, screenForAnimals, animalType, PredatorOrPrey);
+    }
+
+    // assign animal to pen stuff
+    public void assignAnimalToPenPopUpWindowCreation(ActionEvent actionEvent) {
+        // break down into create popUp
+        Stage secondaryStage = new Stage();
+        Parent root = null;
+        try {
+            root = FXMLLoader.load(getClass().getResource("../FXML/AssignAnimalToPenPopUp.fxml"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        secondaryStage.setTitle("Assign animal to Pen");
+        secondaryStage.setScene(new Scene(root, 900, 600));
+        secondaryStage.show();
+    }
+
+    public void displayChoicesForPenPopUpWindow() {
+        animalsController.displayChoicesForPens(AnimalChoices, ScreenForAssigningAnimals, PenChoices);
+    }
+
+    public void displayChoicesForAnimalsPopUpWindow(){
+        animalsController.displayChoicesForAnimals(AnimalChoices);
+    }
+
+    public void assignAnimalToPen() {
+        animalsController.assignAnimalToPen(AnimalChoices, PenChoices, ScreenForAssigningAnimals);
+    }
+
+    // zookeeper stuff
+    public void pensZooKeepersAreResponsibleFor() {
+        try {
+            zooKeeperController.displayChoicesForPens(PossiblePensForZooKeepers, ZooKeepers);
+        }
+        catch(NullPointerException zooKeeperNotChosenException){
+            screenForZooKeepers.setText("Please choose a zookeeper before chosing a pen");
+        }
+    }
+
+    public void assignPenToZooKeeper(ActionEvent actionEvent) {
+        try {
+            zooKeeperController.setPensResponsibleFor(ZooKeepers, PossiblePensForZooKeepers);
+        }
+        catch(Throwable throwable){
+// @todo
+        }
+        this.displayValuesForZooKeepers(actionEvent);
+    }
+
+    public void checkAnimalsAreAssignedToPens() {
+        animalsController.checkAnimalsAreAssignedToPens(screenForUnassignedAnimals);
+    }
+
+    public void checkPensAreAssignedToStaff() {
+        penController.checkPensAreAssignedToStaff(screenForUnassignedPens);
+    }
+
+    public void autoAllocatePens() {
+        penController.autoAllocatePens(screenForUnassignedPens);
+    }
+
+    public void autoAllocateAnimals() {
+        animalsController.autoAllocateAnimals(screenForUnassignedAnimals);
+    }
+
+    public void displayChoicesForPredatorOrPrey() {
+        animalsController.displayChoicesForAnimalOrPrey(PredatorOrPrey);
     }
 }

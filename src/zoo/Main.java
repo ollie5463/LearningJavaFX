@@ -6,20 +6,19 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import zoo.FileUtilities.FileUtilities;
-import zoo.Zoo.Zoo;
 
 public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("FXML/ZooeKeeperSoftware.fxml"));
         primaryStage.setTitle("Zoo Management Software");
         primaryStage.setScene(new Scene(root, 1000, 800));
         primaryStage.show();
     }
 
     @Override
-    public void stop(){
+    public  void stop(){
         FileUtilities.writeToFile(ZooManager.getZoo());
     }
 

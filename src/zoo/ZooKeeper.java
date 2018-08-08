@@ -5,11 +5,12 @@ import java.util.ArrayList;
 
 public class ZooKeeper {
     private String name;
-    private ArrayList<PenType> pensResponsibleFor = new ArrayList<>();
+    private ArrayList<PenType> penTypesResponsibleFor;
+    private ArrayList<String> pensResponsibleFor = new ArrayList<>();
 
-    public ZooKeeper(String name, ArrayList<PenType> pensResponsibleFor){
+    public ZooKeeper(String name, ArrayList<PenType> penTypesResponsibleFor){
         this.name = name;
-        this.pensResponsibleFor = pensResponsibleFor;
+        this.penTypesResponsibleFor = penTypesResponsibleFor;
     }
 
     @Override
@@ -20,11 +21,16 @@ public class ZooKeeper {
     public String getName(){
         return this.name;
     }
-    public ArrayList<PenType> getPensResponsibleFor(){
+
+    public void setPensResponsibleFor(String pensResponsibleFor){
+        this.pensResponsibleFor.add(pensResponsibleFor);
+    }
+
+    public ArrayList<String> getPensResponsibleFor(){
         return this.pensResponsibleFor;
     }
-    public void setPensResponsibleFor( int index, PenType penType){
-        this.pensResponsibleFor.set(index, penType);
+    public ArrayList<PenType> getPenTypesResponsibleFor() {
+        return penTypesResponsibleFor;
     }
 
 }

@@ -1,19 +1,22 @@
 package zoo.Pens;
 
 import zoo.Animals.Animal;
+import zoo.Exceptions.UIException;
 import zoo.PenType;
+import zoo.ZooKeeper;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
-public class  Pen {
+public abstract class  Pen {
 
     protected PenType penType;
     protected ArrayList<Animal> currentAnimals = new ArrayList<>();
-    protected String animalType;
     protected int noOfAnimals = 0;
     protected int length, width, temp;
-    protected int availableSpace;
     protected String penName;
+    private ZooKeeper currentZookeeper;
+    protected boolean doesPenContainPredator;
 
 
     public Pen(PenType penType, int length, int width, int temp, String penName) {
@@ -30,19 +33,15 @@ public class  Pen {
     }
 
     @Override
-    public String toString() {
-        return this.penType.toString();
-    }
+    public String toString() { return this.penType.toString(); }
 
-    public PenType getPenType() {
-        return penType;
-    }
+    public PenType getPenType() { return penType; }
 
-    public void addNewAnimal(Animal animal) {
-        if (isAnimalSuitableForPen(animal) && isEnoughSpace(animal)) {
-            System.out.println("its suitable and there is enough space");
-        }
-    }
+    protected boolean isAnimalOfSamePredatoryStatus(Animal animal){
+        return animal.isPredator() == doesPenContainPredator; }
+
+
+    public abstract void addNewAnimal(Animal animal) throws UIException;
 
     protected boolean isAnimalSuitableForPen(Animal animal) {
         Boolean isSuitable = false;
@@ -64,70 +63,22 @@ public class  Pen {
         return isSuitable;
     }
 
-    public void removeAnimal(Animal animal) {
+    private boolean isPenTypeSuitableForAnimal(PenType penType) { return this.penType.equals(penType); }
 
-        try {
-            if (noOfAnimals == 0) {
-                throw new Throwable();
-            } else {
-                noOfAnimals--;
-                availableSpace += animal.getSpaceNeeded();
-            }
-        } catch (Throwable throwable) {
-            System.out.println("There are no animals to remove");
-        }
-    }
+    public int getTemp() { return temp; }
 
-    private boolean isPenTypeSuitableForAnimal(PenType penType) {
-        if (this.penType.equals(penType)) {
-            return true;
-        } else {
-            return false;
-        }
-    }
+    public ArrayList<Animal> getCurrentAnimals() { return currentAnimals; }
 
-    protected boolean isEnoughSpace(Animal animal) {
-        try {
-            if ((availableSpace - animal.getSpaceNeeded()) < 0) {
-                throw new Throwable();
-            } else {
-                availableSpace -= animal.getSpaceNeeded();
-                this.currentAnimals.add(animal);
-                noOfAnimals++;
-                return true;
-            }
-        } catch (Throwable throwable) {
-            System.out.println("there is not enough space to hold this animal, there is only " + availableSpace + " meters squared left");
-            return false;
-        }
-    }
+    public int getWidth() { return this.width; }
 
-    public int getTemp() {
-        return temp;
-    }
+    public int getLength() { return this.length; }
 
-    public int getAvailableSpace() {
-        return this.availableSpace;
-    }
+    public int getNoOfAnimals() { return noOfAnimals; }
 
-    public ArrayList<Animal> getCurrentAnimals() {
-        return currentAnimals;
-    }
+    public String getPenName() { return penName; }
 
-    public int getWidth() {
-        return this.width;
-    }
+    public void setCurrentZookeeper(ZooKeeper currentZookeeper) { this.currentZookeeper = currentZookeeper; }
 
-    public int getLength() {
-        return this.length;
-    }
-
-    public int getNoOfAnimals() {
-        return noOfAnimals;
-    }
-
-    public String getPenName() {
-        return penName;
-    }
+    public ZooKeeper getCurrentZookeeper() { return currentZookeeper; }
 }
 

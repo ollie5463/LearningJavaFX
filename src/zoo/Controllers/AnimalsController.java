@@ -7,11 +7,13 @@ import javafx.scene.control.TextArea;
 import javafx.scene.input.MouseEvent;
 import zoo.Animals.Animal;
 import zoo.PenType;
+import zoo.Pens.Pen;
 import zoo.ZooManager;
 
 import java.util.ArrayList;
 
 import static zoo.PenType.*;
+import static zoo.ZooManager.getAnimalsNotAssignedToAPen;
 
 public class AnimalsController {
 
@@ -49,30 +51,41 @@ public class AnimalsController {
         try {
             Animal animal = ZooManager.getAnimal(chosenAnimal);
             screenForAnimals.setPrefRowCount(rowCount);
-            screenForAnimals.setText("Animal info for: " + animal + "\n\n"
-                    +"Space needed for animal: " + animal.getSpaceNeeded() + "\n\n"
-                    +"Suitable pens: " + animal.getSuitablePens() + "\n\n"
-                    +"Water volume needed: " + animal.getWaterVolumeNeeded());
+            screenForAnimals.setText(animal.getAvailableSpace().toString());
+            screenForAnimals.setText("Animal info for: " + animal + "\n\n" +
+                    animal.getAvailableSpace().toString() + "\n\n"+
+                    "Suitable pens: " + animal.getSuitablePens() + "\n\n"
+                    +"Current pen: " + animal.getCurrentPen() + "\n\n"
+                    +"Predator or prey: " + animal.isPredator());
         }
         catch(Throwable animalException){
             screenForAnimals.setText("Please choose an animal from the list at the top of the screen !!!");
         }
     }
 
-    public void addAnimal(ChoiceBox<PenType> penType, ChoiceBox<PenType> penType2, TextArea waterSpaceNeeded, TextArea spaceNeeded, TextArea screenForAnimals, TextArea animalType) {
 
-        //@todo when adding an animal the water volume needed is always set to 0 even though it shoudlnt be, need to fix
-
+    public void addAnimal(ChoiceBox<PenType> penType, ChoiceBox<PenType> penType2, TextArea waterSpaceOrAirSpaceNeeded, TextArea spaceNeeded, TextArea screenForAnimals, TextArea animalType, ChoiceBox predatorOrPrey) {
         ArrayList<PenType> penTypes = getChosenPenTypes(penType, penType2, screenForAnimals);
-        if( waterSpaceNeeded != null && spaceNeeded != null) {
-            ZooManager.addAnimal(getAnimalType(animalType, screenForAnimals), penTypes, getSpaceNeeded(spaceNeeded, screenForAnimals));
+        boolean isPredator = (predatorOrPrey.getValue()) == "Predator";
+        if(penTypes.contains(PETTING) && penTypes.contains(DRY)){
+            ZooManager.addLandAnimal(new ArrayList<>(){{add(PETTING);add(DRY);}}, animalType.getText(), isPredator, Integer.parseInt(spaceNeeded.getText()));
         }
-        else if(waterSpaceNeeded != null){
-            ZooManager.addAnimal(getAnimalType(animalType, screenForAnimals), penTypes, getSpaceNeeded(spaceNeeded, screenForAnimals),getWaterSpacedNeeded(waterSpaceNeeded, screenForAnimals));
+        else if(penTypes.contains(PETTING)){
+            ZooManager.addLandAnimal(new ArrayList<>(){{add(PETTING);}}, animalType.getText(), isPredator, Integer.parseInt(spaceNeeded.getText()));
         }
-        animalType.clear();
-        spaceNeeded.clear();
-        waterSpaceNeeded.clear();
+        else if(penTypes.contains(DRY)){
+            ZooManager.addLandAnimal(new ArrayList<>(){{add(DRY);}}, animalType.getText(), isPredator, Integer.parseInt(spaceNeeded.getText()));
+        }
+        else if(penTypes.contains(PARTWATERPARTDRY)) {
+            ZooManager.addAmphibiousAnimal(new ArrayList<>(){{add(PARTWATERPARTDRY);}}, animalType.getText(), isPredator, Integer.parseInt(waterSpaceOrAirSpaceNeeded.getText()), Integer.parseInt(spaceNeeded.getText()));
+        }
+        else if(penTypes.contains(AQUARIUM)){
+            ZooManager.addAquaticAnimal(new ArrayList<>(){{add(AQUARIUM);}}, animalType.getText(), isPredator, Integer.parseInt(waterSpaceOrAirSpaceNeeded.getText()));
+        }
+        else if(penTypes.contains(AVIARY)){
+            ZooManager.addAvesAnimal(new ArrayList<>(){{add(AVIARY);}}, animalType.getText(), isPredator, Integer.parseInt(waterSpaceOrAirSpaceNeeded.getText()));
+        }
+        clearAnimalRequirements(new ArrayList<>(){{add(animalType);add(spaceNeeded);add(waterSpaceOrAirSpaceNeeded);}});
     }
 
     private ArrayList<PenType> getChosenPenTypes(ChoiceBox<PenType> penType, ChoiceBox<PenType> penType2, TextArea screenForAnimals){
@@ -88,40 +101,76 @@ public class AnimalsController {
     }
 
 
-    private String getAnimalType(TextArea animalType, TextArea screenForAnimals){
-        try{
-            if (animalType.getText() == null){
-                throw new Throwable();
-            }
+    private void clearAnimalRequirements(ArrayList<TextArea> animalChoices){
+        for(TextArea textArea :  animalChoices){
+            textArea.clear();
         }
-        catch(Throwable AnimalTypeNotSpecified){
-            screenForAnimals.setText("animal type not specified");
-        }
-        return animalType.getText();
+
     }
 
-    private int getSpaceNeeded(TextArea spaceNeeded, TextArea screenForAnimals){
-        try{
-            if(spaceNeeded.getText() == null){
-                throw new Throwable();
+    public void displayChoicesForPens(ChoiceBox<Animal> animalChoices, TextArea screenForAssigningAnimals, ChoiceBox<String> penChoices) {
+        if(animalChoices.getValue() == null){
+            screenForAssigningAnimals.setPrefRowCount(2);
+            screenForAssigningAnimals.setText("please choose an animal before you \n pick a possible pen to assign it to");
+        }
+        else{
+            //@todo break this down
+            ArrayList<PenType> suitablePens = animalChoices.getValue().getSuitablePens();
+            ArrayList<Pen> pens =  ZooManager.getPens();
+            ObservableList<String> listOfPens = FXCollections.observableArrayList();
+            for(Pen pen : pens){
+                if(suitablePens.contains(pen.getPenType())){
+                    listOfPens.add(pen.getPenName());
+                }
             }
+            penChoices.setItems(listOfPens);
         }
-        catch(Throwable SpaceNeededNotSpecified){
-            screenForAnimals.setText("Please specify space needed for the animal");
-        }
-        return Integer.parseInt(spaceNeeded.getText());
     }
 
-    private int getWaterSpacedNeeded(TextArea waterSpaceNeeded, TextArea screenForAnimals){
-        try{
-            if(waterSpaceNeeded.getText() == null){
-                throw new Throwable();
+    public void assignAnimalToPen(ChoiceBox<Animal> animalChoices, ChoiceBox<String> penChoices, TextArea screenForAssigningAnimals) {
+        if(animalChoices.getValue().getCurrentPen() == null || !animalChoices.getValue().getCurrentPen().equals(penChoices.getValue())){
+            try{
+                assignAnimal(animalChoices.getValue(), penChoices.getValue());
+                animalChoices.getValue().setCurrentPen(penChoices.getValue());
+                screenForAssigningAnimals.setText("You just set " + animalChoices.getValue().getName() + " to pen " + penChoices.getValue());
+            }
+            catch (Throwable throwable){
+                screenForAssigningAnimals.setText(throwable.toString());
             }
         }
-        catch(Throwable waterSpaceNotSpecified){
-            screenForAnimals.setText("please specify a water volume");
-        }
+        else{
+            screenForAssigningAnimals.setText("Your trying to assign " + animalChoices.getValue().getName() + " to a pen its currently in " + penChoices.getValue());
+         }
+    }
 
-        return Integer.parseInt(waterSpaceNeeded.getText());
+
+    private void assignAnimal(Animal animalChoice, String penName) throws Throwable{
+            ZooManager.assignAnimalToPen(animalChoice, penName);
+    }
+
+    public void checkAnimalsAreAssignedToPens(TextArea screenForHome) {
+        ArrayList<Animal> animalsNotAssignedToPens = getAnimalsNotAssignedToAPen();
+        if(!animalsNotAssignedToPens.isEmpty()){
+            screenForHome.setText(animalsNotAssignedToPens.toString());
+        }
+        else{
+            screenForHome.setText("All animals are assigned to pens");
+        }
+    }
+
+    public void autoAllocateAnimals(TextArea screenForAssigningAnimals) {
+        ArrayList<Animal> animalsNotAssignedToAPen = ZooManager.getAnimalsNotAssignedToAPen();
+        if(!animalsNotAssignedToAPen.isEmpty()){
+            for(Animal animal : animalsNotAssignedToAPen){
+                ZooManager.autoAssignAnimalToPen(animal);
+            }
+        }
+        else{
+            screenForAssigningAnimals.setText("There are no animals to auto allocate");
+        }
+    }
+
+    public void displayChoicesForAnimalOrPrey(ChoiceBox predatorOrPrey) {
+        predatorOrPrey.setItems(FXCollections.observableArrayList("Predator", "Prey"));
     }
 }

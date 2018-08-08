@@ -6,6 +6,7 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.input.MouseEvent;
 import zoo.PenType;
+import zoo.Pens.Pen;
 import zoo.ZooKeeper;
 import zoo.ZooManager;
 import java.util.ArrayList;
@@ -26,22 +27,10 @@ public class ZooKeeperController {
         ZooKeeper zooKeeper = getZooKeeper(chosenZooKeeper);
         screenForZooKeepers.setPrefRowCount(rowCount);
         screenForZooKeepers.setText("Zoo keeper info for: "+ zooKeeper + "\n\n"
-                    + "Pens responsible for: " + zooKeeper.getPensResponsibleFor().toString()
+                    + "Pens responsible for: " + zooKeeper.getPensResponsibleFor()
             );
     }
 
-    public void changePenTypes(ChoiceBox<PenType> zooKeeperPenType, ChoiceBox<PenType> zooKeeperPenType2, ChoiceBox<ZooKeeper> zooKeepersChoiceBox){
-        PenType chosenPenType = zooKeeperPenType.getValue();
-        PenType chosenPenType2 = zooKeeperPenType2.getValue();
-        ArrayList<PenType> penTypes = zooKeepersChoiceBox.getValue().getPensResponsibleFor();
-        ZooKeeper zooKeeper = zooKeepersChoiceBox.getValue();
-        if(!chosenPenType.equals(penTypes.get(0))){
-            zooKeeper.setPensResponsibleFor(0, chosenPenType);
-        }
-        if(!chosenPenType2.equals(penTypes.get(1))){
-            zooKeeper.setPensResponsibleFor( 1, chosenPenType2);
-        }
-    }
 
     public void displayChoicesForPenType(MouseEvent mouseEvent, ChoiceBox<PenType> zooKeeperPenType, ChoiceBox<PenType> zooKeeperPenType2){
         String source = ((ChoiceBox) mouseEvent.getSource()).idProperty().getValue();
@@ -69,11 +58,33 @@ public class ZooKeeperController {
     private ZooKeeper getZooKeeper(ZooKeeper zooKeeper){
         try{
             zooKeeper = ZooManager.getZooKeeper(zooKeeper);
-
         }
         catch(Throwable zooKeeperException){
             System.out.println("That isn't a Zoo Keeper");
         }
         return zooKeeper;
+    }
+
+    public void setPensResponsibleFor(ChoiceBox<ZooKeeper> zooKeepers, ChoiceBox<String> possiblePensForZooKeepers) throws Throwable {
+        // @todo need to add multiple pens responsible for here -----
+        ZooManager.assignZooKeeperToPen(zooKeepers, possiblePensForZooKeepers);
+    }
+
+    public void displayChoicesForPens(ChoiceBox<String> possiblePensForZooKeepers, ChoiceBox<ZooKeeper> zooKeepers)throws NullPointerException{
+        ObservableList<String> listOfPens = FXCollections.observableArrayList();
+        ArrayList<PenType> possiblePenTypes = getZooKeeper(zooKeepers).getPenTypesResponsibleFor(); // possible pen types for ZK
+        ArrayList<Pen> pens =ZooManager.getPens();// gets the possible pens
+        for(PenType penType : possiblePenTypes){
+            for(Pen pen : pens){
+                if(penType.equals(pen.getPenType())){
+                    listOfPens.add(pen.getPenName());
+                }
+            }
+        }
+        possiblePensForZooKeepers.setItems(listOfPens);
+    }
+
+    private ZooKeeper getZooKeeper(ChoiceBox<ZooKeeper> zooKeeperChoiceBox) throws NullPointerException{
+            return zooKeeperChoiceBox.getValue();
     }
 }
