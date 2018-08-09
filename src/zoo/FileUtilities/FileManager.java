@@ -7,7 +7,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-public class FileUtilities {
+public class FileManager {
     static Gson gson = new Gson();
     private static File file = new File("Zoo.json");
 

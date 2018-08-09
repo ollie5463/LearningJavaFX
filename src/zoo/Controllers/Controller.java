@@ -1,6 +1,5 @@
 package zoo.Controllers;
 
-import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -10,7 +9,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import zoo.*;
 import zoo.Animals.Animal;
-import zoo.FileUtilities.FileUtilities;
+import zoo.FileUtilities.FileManager;
 import zoo.Pens.PenType;
 import zoo.Zoo.Zoo;
 import java.io.IOException;
@@ -20,32 +19,32 @@ import java.util.ArrayList;
 public class Controller{
 
     public TextArea ScreenForAssigningAnimals;
-    public TextArea screenForWeather;
-    public TextArea screenForUnassignedAnimals;
-    public Button displayWeather;
-    public TextArea screenForUnassignedPens;
+    public TextArea ScreenForWeather;
+    public TextArea ScreenForUnassignedAnimals;
+    public Button DisplayWeather;
+    public TextArea ScreenForUnassignedPens;
     public ChoiceBox PredatorOrPrey;
     public ChoiceBox<Animal> AnimalChoices;
-    public TextArea width;
-    public TextArea length;
-    public TextArea penName;
-    public TextArea heightOrVolume;
-    public TextArea temp;
-    public Button submitAnimal;
+    public TextArea Width;
+    public TextArea Length;
+    public TextArea PenName;
+    public TextArea HeightOrVolume;
+    public TextArea Temp;
+    public Button SubmitAnimal;
     public ChoiceBox<String> PenChoices;
     public Button AddPen;
     public ChoiceBox<PenType> PenTypeForPen;
-    public TextArea waterSpaceOrAirVolumeNeeded;
-    public TextArea animalType;
-    public TextArea spaceNeeded;
-    public TextArea screenForAnimals;
-    public TextArea screenForZooKeepers;
+    public TextArea WaterSpaceOrAirVolumeNeeded;
+    public TextArea AnimalType;
+    public TextArea SpaceNeeded;
+    public TextArea ScreenForAnimals;
+    public TextArea ScreenForZooKeepers;
     public ChoiceBox<Animal> Animals;
     public ChoiceBox<String> Pens;
     public ChoiceBox<zoo.Pens.PenType> PenType;
     public ChoiceBox<PenType> PenType2;
     public ChoiceBox<String> PossiblePensForZooKeepers;
-    public TextArea screenForPens;
+    public TextArea ScreenForPens;
     public ChoiceBox<ZooKeeper> ZooKeepers;
     public TextArea TableForAnimal;
     private ZooKeeperController zooKeeperController;
@@ -62,7 +61,7 @@ public class Controller{
     public void initialize(){
         // @todo, you need to find a way to only initialise the zoo once because it now does it twice
         // one when you load the first screen and once when you load the second
-        Zoo zoo = FileUtilities.readFromFile();
+        Zoo zoo = FileManager.readFromFile();
             if(zoo == null){
                 ZooManager.createDefaultZoo();
             }
@@ -84,7 +83,7 @@ public class Controller{
 
     @FXML
     public void setWeather(ArrayList<Object> weather){
-        screenForWeather.setText("The current temperature is: " + weather.get(0) + " This was accessed at " + weather.get(1));
+        ScreenForWeather.setText("The current temperature is: " + weather.get(0) + " This was accessed at " + weather.get(1));
     }
 
     // Zoo keeper controller stuff
@@ -96,7 +95,7 @@ public class Controller{
 
     @FXML
     public void displayValuesForZooKeepers(){
-        zooKeeperController.displayValuesForZooKeepers(2, ZooKeepers, screenForZooKeepers);
+        zooKeeperController.displayValuesForZooKeepers(2, ZooKeepers, ScreenForZooKeepers);
     }
 
 
@@ -114,11 +113,11 @@ public class Controller{
     }
     @FXML
     public void displayValuesForPens(){
-        penController.displayValuesForPen(Pens, screenForPens, 4);
+        penController.displayValuesForPen(Pens, ScreenForPens, 4);
     }
 
     public void addPen() {
-        penController.addPen(PenTypeForPen, width, heightOrVolume, length, penName, temp);
+        penController.addPen(PenTypeForPen, Width, HeightOrVolume, Length, PenName, Temp);
     }
 
     // end
@@ -136,13 +135,13 @@ public class Controller{
 
     @FXML
     public void displayValuesForAnimals(){
-        animalsController.displayValuesForAnimals(Animals , screenForAnimals, 4);
+        animalsController.displayValuesForAnimals(Animals , ScreenForAnimals, 4);
     }
 
     //    @Todo  BUG
     @FXML
-    public void addAnimal(){
-        animalsController.addAnimal(PenType, PenType2, waterSpaceOrAirVolumeNeeded, spaceNeeded, screenForAnimals, animalType, PredatorOrPrey);
+    public void AddAnimal(){
+        animalsController.addAnimal(PenType, PenType2, WaterSpaceOrAirVolumeNeeded, SpaceNeeded, ScreenForAnimals, AnimalType, PredatorOrPrey);
     }
 
     // assign animal to pen stuff
@@ -178,7 +177,7 @@ public class Controller{
             zooKeeperController.displayChoicesForPens(PossiblePensForZooKeepers, ZooKeepers);
         }
         catch(NullPointerException zooKeeperNotChosenException){
-            screenForZooKeepers.setText("Please choose a zookeeper before chosing a pen");
+            ScreenForZooKeepers.setText("Please choose a zookeeper before chosing a pen");
         }
     }
 
@@ -193,19 +192,21 @@ public class Controller{
     }
 
     public void checkAnimalsAreAssignedToPens() {
-        animalsController.checkAnimalsAreAssignedToPens(screenForUnassignedAnimals);
+        animalsController.checkAnimalsAreAssignedToPens(ScreenForUnassignedAnimals);
     }
 
     public void checkPensAreAssignedToStaff() {
-        penController.checkPensAreAssignedToStaff(screenForUnassignedPens);
+        penController.checkPensAreAssignedToStaff(ScreenForUnassignedPens);
     }
 
     public void autoAllocatePens() {
-        penController.autoAllocatePens(screenForUnassignedPens);
+        penController.autoAllocatePens(ScreenForUnassignedPens);
+//        checkPensAreAssignedToStaff();
     }
-g
+
     public void autoAllocateAnimals() {
-        animalsController.autoAllocateAnimals(screenForUnassignedAnimals);
+        animalsController.autoAllocateAnimals(ScreenForUnassignedAnimals);
+//        checkAnimalsAreAssignedToPens();
     }
 
     public void displayChoicesForPredatorOrPrey() {
@@ -218,7 +219,7 @@ g
             this.displayValuesForZooKeepers();
         }
         catch(Throwable uiException){
-            screenForZooKeepers.setText(uiException.toString());
+            ScreenForZooKeepers.setText(uiException.toString());
         }
     }
 

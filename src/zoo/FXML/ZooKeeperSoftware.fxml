@@ -13,10 +13,10 @@
     <Tab text="Home">
       <content>
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-              <TextArea fx:id="screenForWeather" layoutX="257.0" layoutY="102.0" prefHeight="99.0" prefWidth="486.0" />
-              <TextArea fx:id="screenForUnassignedAnimals" layoutX="257.0" layoutY="250.0" prefHeight="99.0" prefWidth="486.0" />
-              <TextArea fx:id="screenForUnassignedPens" layoutX="257.0" layoutY="400" prefHeight="99.0" prefWidth="486.0" />
-              <Button fx:id="displayWeather" layoutX="441.0" layoutY="52.0" mnemonicParsing="false" onAction="#getWeather" text="Display Weather" />
+              <TextArea fx:id="ScreenForWeather" layoutX="257.0" layoutY="102.0" prefHeight="99.0" prefWidth="486.0" />
+              <TextArea fx:id="ScreenForUnassignedAnimals" layoutX="257.0" layoutY="250.0" prefHeight="99.0" prefWidth="486.0" />
+              <TextArea fx:id="ScreenForUnassignedPens" layoutX="257.0" layoutY="400" prefHeight="99.0" prefWidth="486.0" />
+              <Button fx:id="DisplayWeather" layoutX="441.0" layoutY="52.0" mnemonicParsing="false" onAction="#getWeather" text="Display Weather" />
                 <Button layoutX="750" layoutY="273.0" onAction="#autoAllocateAnimals" prefHeight="53.0" prefWidth="239.0" text="Auto allocate animals" />
                 <Button layoutX="750" layoutY="423.0" onAction="#autoAllocatePens" prefHeight="53.0" prefWidth="239.0" text="Auto allocate pens" />
               <Button layoutX="14.0" layoutY="423.0" onAction="#checkPensAreAssignedToStaff" prefHeight="53.0" prefWidth="239.0" text="Check pens are assigned to staff" />
@@ -30,26 +30,26 @@
     <Tab onSelectionChanged="#displayTableForAnimal" text="Animals">
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="541.0" prefWidth="887.0">
                   <ChoiceBox fx:id="Animals" layoutX="646.0" layoutY="23.0" onMousePressed="#displayChoicesForAnimals" prefWidth="150.0" />
-            <TextArea fx:id="screenForAnimals" editable="false" layoutX="503.0" layoutY="118.0" prefHeight="556.0" prefWidth="435.0">
+            <TextArea fx:id="ScreenForAnimals" editable="false" layoutX="503.0" layoutY="118.0" prefHeight="556.0" prefWidth="435.0">
                   <font>
                      <Font size="15.0" />
                   </font></TextArea>
-               <Button fx:id="submitAnimal" layoutX="615.0" layoutY="71.0" mnemonicParsing="false" onAction="#displayValuesForAnimals" text="Submit" />
+               <Button fx:id="SubmitAnimal" layoutX="615.0" layoutY="71.0" mnemonicParsing="false" onAction="#displayValuesForAnimals" text="Submit" />
                <Button layoutX="700.0" layoutY="71.0" mnemonicParsing="false" onAction="#assignAnimalToPenPopUpWindowCreation" text="Assign animal to Pen" />
-               <Button fx:id="addAnimal" layoutX="262.0" layoutY="148.0" mnemonicParsing="false" onAction="#addAnimal" prefHeight="110.0" prefWidth="107.0" text="Add Animal" />
-               <TextArea fx:id="spaceNeeded" layoutX="41.0" layoutY="84.0" prefHeight="42.0" prefWidth="185.0" promptText="Enter land needed in m2" />
-               <TextArea fx:id="animalType" layoutX="40.0" layoutY="139.0" prefHeight="43.0" prefWidth="187.0" promptText="Enter Animal type" />
+               <Button fx:id="AddAnimal" layoutX="262.0" layoutY="148.0" mnemonicParsing="false" onAction="#AddAnimal" prefHeight="110.0" prefWidth="107.0" text="Add Animal" />
+               <TextArea fx:id="SpaceNeeded" layoutX="41.0" layoutY="84.0" prefHeight="42.0" prefWidth="185.0" promptText="Enter land needed in m2" />
+               <TextArea fx:id="AnimalType" layoutX="40.0" layoutY="139.0" prefHeight="43.0" prefWidth="187.0" promptText="Enter Animal type" />
                <ChoiceBox fx:id="PenType" layoutX="42.0" layoutY="203.0" onMousePressed="#displayChoicesForPenType" prefHeight="36.0" prefWidth="180.0" />
                <ChoiceBox fx:id="PenType2" layoutX="42.0" layoutY="261.0" onMousePressed="#displayChoicesForPenType" prefHeight="36.0" prefWidth="180.0" />
                <ChoiceBox fx:id="PredatorOrPrey" layoutX="42.0" layoutY="310.0" onMousePressed="#displayChoicesForPredatorOrPrey" prefHeight="36.0" prefWidth="180.0" />
-               <TextArea fx:id="waterSpaceOrAirVolumeNeeded" layoutX="240.0" layoutY="84.0" prefHeight="42.0" prefWidth="185.0" promptText="Enter water volume or air volume needed m3" />
+               <TextArea fx:id="WaterSpaceOrAirVolumeNeeded" layoutX="240.0" layoutY="84.0" prefHeight="42.0" prefWidth="185.0" promptText="Enter water volume or air volume needed m3" />
             <TextArea fx:id="TableForAnimal" editable="false" layoutX="33.0" layoutY="377.0" prefHeight="300.0" prefWidth="435.0" />
         </AnchorPane>
     </Tab>
       <Tab text="Zoo Keepers">
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                    <ChoiceBox fx:id="ZooKeepers" layoutX="398.0" layoutY="25.0" onMousePressed="#displayChoicesForZooKeepers" prefHeight="27.0" prefWidth="166.0" />
-                  <TextArea fx:id="screenForZooKeepers" editable="false" layoutX="167.0" layoutY="122.0" prefHeight="378.0" prefWidth="628.0">
+                  <TextArea fx:id="ScreenForZooKeepers" editable="false" layoutX="167.0" layoutY="122.0" prefHeight="378.0" prefWidth="628.0">
                   <font>
                      <Font size="20.0" />
                   </font></TextArea>
@@ -63,15 +63,15 @@
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                <children>
                   <ChoiceBox fx:id="Pens" layoutX="673.0" layoutY="45.0" onMousePressed="#displayChoicesForPens" prefWidth="150.0" />
-                  <TextArea fx:id="screenForPens" layoutX="576.0" layoutY="134.0" prefHeight="481.0" prefWidth="344.0" />
+                  <TextArea fx:id="ScreenForPens" layoutX="576.0" layoutY="134.0" prefHeight="481.0" prefWidth="344.0" />
                   <Button layoutX="706.0" layoutY="84.0" mnemonicParsing="false" onAction="#displayValuesForPens" prefHeight="24.0" prefWidth="85.0" text="Submit" />
                    <Button fx:id="AddPen" layoutX="258.0" layoutY="265.0" mnemonicParsing="false" onAction="#addPen" prefHeight="110.0" prefWidth="107.0" text="Add Pen" />
-                   <TextArea fx:id="penName" layoutX="41.0" layoutY="84.0" prefHeight="42.0" prefWidth="185.0" promptText="Enter pen name" />
-                   <TextArea fx:id="temp" layoutX="241.0" layoutY="200.0" prefHeight="42.0" prefWidth="185.0" promptText="Enter the temperature for the pen" />
-                   <TextArea fx:id="width" layoutX="40.0" layoutY="139.0" prefHeight="43.0" prefWidth="187.0" promptText="Enter width in meters" />
-                   <TextArea fx:id="heightOrVolume" layoutX="240.0" layoutY="139.0" prefHeight="43.0" prefWidth="187.0" promptText="Enter height(aviary or aquarium) or volume in meters(for part water part dry)" />
+                   <TextArea fx:id="PenName" layoutX="41.0" layoutY="84.0" prefHeight="42.0" prefWidth="185.0" promptText="Enter pen name" />
+                   <TextArea fx:id="Temp" layoutX="241.0" layoutY="200.0" prefHeight="42.0" prefWidth="185.0" promptText="Enter the temperature for the pen" />
+                   <TextArea fx:id="Width" layoutX="40.0" layoutY="139.0" prefHeight="43.0" prefWidth="187.0" promptText="Enter width in meters" />
+                   <TextArea fx:id="HeightOrVolume" layoutX="240.0" layoutY="139.0" prefHeight="43.0" prefWidth="187.0" promptText="Enter height(aviary or aquarium) or volume in meters(for part water part dry)" />
                    <ChoiceBox fx:id="PenTypeForPen" layoutX="42.0" layoutY="203.0" onMousePressed="#displayChoicesForPens2" prefHeight="36.0" prefWidth="180.0" />
-                   <TextArea fx:id="length" layoutX="240.0" layoutY="84.0" prefHeight="42.0" prefWidth="185.0" promptText="Enter length in meters" />
+                   <TextArea fx:id="Length" layoutX="240.0" layoutY="84.0" prefHeight="42.0" prefWidth="185.0" promptText="Enter length in meters" />
                </children></AnchorPane>
       </Tab>
   </tabs>

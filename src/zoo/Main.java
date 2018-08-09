@@ -5,7 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import zoo.FileUtilities.FileUtilities;
+import zoo.FileUtilities.FileManager;
 
 public class Main extends Application {
 
@@ -19,7 +19,7 @@ public class Main extends Application {
 
     @Override
     public void stop(){
-        FileUtilities.writeToFile(ZooManager.getZoo());
+        FileManager.writeToFile(ZooManager.getZoo());
     }
 
     public static void main(String[] args) {
