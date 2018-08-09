@@ -2,11 +2,9 @@ package zoo.Pens;
 
 import zoo.Animals.Animal;
 import zoo.Exceptions.UIException;
-import zoo.PenType;
 import zoo.ZooKeeper;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public abstract class  Pen {
 

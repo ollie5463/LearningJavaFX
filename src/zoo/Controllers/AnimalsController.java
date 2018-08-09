@@ -6,13 +6,13 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.input.MouseEvent;
 import zoo.Animals.Animal;
-import zoo.PenType;
+import zoo.Pens.PenType;
 import zoo.Pens.Pen;
 import zoo.ZooManager;
 
 import java.util.ArrayList;
 
-import static zoo.PenType.*;
+import static zoo.Pens.PenType.*;
 import static zoo.ZooManager.getAnimalsNotAssignedToAPen;
 
 public class AnimalsController {
@@ -114,17 +114,18 @@ public class AnimalsController {
             screenForAssigningAnimals.setText("please choose an animal before you \n pick a possible pen to assign it to");
         }
         else{
-            //@todo break this down
-            ArrayList<PenType> suitablePens = animalChoices.getValue().getSuitablePens();
-            ArrayList<Pen> pens =  ZooManager.getPens();
-            ObservableList<String> listOfPens = FXCollections.observableArrayList();
-            for(Pen pen : pens){
-                if(suitablePens.contains(pen.getPenType())){
-                    listOfPens.add(pen.getPenName());
-                }
-            }
-            penChoices.setItems(listOfPens);
+            penChoices.setItems(getListOfPensForAnimal(animalChoices.getValue().getSuitablePens(),ZooManager.getPens()));
         }
+    }
+
+    private ObservableList<String> getListOfPensForAnimal(ArrayList<PenType> suitablePens, ArrayList<Pen> pens){
+        ObservableList<String> listOfPens = FXCollections.observableArrayList();
+        for(Pen pen : pens){
+            if(suitablePens.contains(pen.getPenType())){
+                listOfPens.add(pen.getPenName());
+            }
+        }
+         return listOfPens;
     }
 
     public void assignAnimalToPen(ChoiceBox<Animal> animalChoices, ChoiceBox<String> penChoices, TextArea screenForAssigningAnimals) {
@@ -172,5 +173,15 @@ public class AnimalsController {
 
     public void displayChoicesForAnimalOrPrey(ChoiceBox predatorOrPrey) {
         predatorOrPrey.setItems(FXCollections.observableArrayList("Predator", "Prey"));
+    }
+
+    public void setTable(TextArea tableForAnimal) {
+        tableForAnimal.setPrefRowCount(5);
+        tableForAnimal.setText("Different animal specs when adding an animal" + "\n\n"+
+        "For Dry or Petting pens you specify the landm2" + "\n\n" +
+        "For Part Water Part Dry pens you specify the landm2 and water m3" + "\n\n" +
+        "For an Aviary you specify the air m3" + "\n\n" +
+        "For an Aquarium you need to specify the waterm3" + "\n\n"
+        );
     }
 }

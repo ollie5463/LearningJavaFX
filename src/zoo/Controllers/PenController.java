@@ -4,7 +4,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextArea;
-import zoo.PenType;
+import zoo.Pens.PenType;
 import zoo.Pens.Pen;
 import zoo.Pens.PenInstances.Aquarium;
 import zoo.Pens.PenInstances.Aviary;
@@ -13,7 +13,7 @@ import zoo.ZooManager;
 
 import java.util.ArrayList;
 
-import static zoo.PenType.*;
+import static zoo.Pens.PenType.*;
 
 public class PenController {
 

@@ -5,13 +5,14 @@ import javafx.collections.ObservableList;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.input.MouseEvent;
-import zoo.PenType;
+import zoo.Exceptions.ZooKeeperNotChosenException;
+import zoo.Pens.PenType;
 import zoo.Pens.Pen;
 import zoo.ZooKeeper;
 import zoo.ZooManager;
 import java.util.ArrayList;
-import static zoo.PenType.*;
-import static zoo.PenType.PARTWATERPARTDRY;
+import static zoo.Pens.PenType.*;
+import static zoo.Pens.PenType.PARTWATERPARTDRY;
 
 public class ZooKeeperController {
 
@@ -66,7 +67,6 @@ public class ZooKeeperController {
     }
 
     public void setPensResponsibleFor(ChoiceBox<ZooKeeper> zooKeepers, ChoiceBox<String> possiblePensForZooKeepers) throws Throwable {
-        // @todo need to add multiple pens responsible for here -----
         ZooManager.assignZooKeeperToPen(zooKeepers, possiblePensForZooKeepers);
     }
 
@@ -87,4 +87,16 @@ public class ZooKeeperController {
     private ZooKeeper getZooKeeper(ChoiceBox<ZooKeeper> zooKeeperChoiceBox) throws NullPointerException{
             return zooKeeperChoiceBox.getValue();
     }
+
+    public void resetPensForZooKeeper(ChoiceBox<ZooKeeper> zooKeepers) throws Throwable {
+        if(zooKeepers.getValue() == null) {
+            throw new ZooKeeperNotChosenException();
+        }
+        else{
+            ZooManager.resetPensForZooKeeper(zooKeepers.getValue());
+
+        }
+    }
+
+
 }

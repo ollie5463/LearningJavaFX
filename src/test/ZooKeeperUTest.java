@@ -2,7 +2,7 @@ package test;
 
 
 import org.junit.Test;
-import zoo.PenType;
+import zoo.Pens.PenType;
 import zoo.ZooKeeper;
 
 import java.util.ArrayList;

@@ -4,7 +4,7 @@ import org.junit.Assert;
 import org.junit.Test;
 import zoo.Animals.Animal;
 import zoo.Animals.AnimalClassifications.LandAnimal;
-import zoo.PenType;
+import zoo.Pens.PenType;
 import zoo.ZooManager;
 
 import java.util.ArrayList;

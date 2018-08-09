@@ -1,7 +1,7 @@
 package zoo.Animals.AnimalClassifications;
 
 import zoo.Animals.Animal;
-import zoo.PenType;
+import zoo.Pens.PenType;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -15,6 +15,7 @@ public class AvesAnimal  extends Animal{
     public AvesAnimal(ArrayList<PenType> suitablePens, String animalName, boolean isPredator, int airNeeded) {
         super(suitablePens, animalName, isPredator);
         this.airNeeded = airNeeded;
+        this.classification = Classification.AVES;
     }
 
     @Override

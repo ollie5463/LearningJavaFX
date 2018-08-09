@@ -1,6 +1,7 @@
 package zoo.Animals;
 
-import zoo.PenType;
+import zoo.Animals.AnimalClassifications.Classification;
+import zoo.Pens.PenType;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -10,6 +11,7 @@ public abstract class Animal {
     private String animalName;
     private ArrayList<PenType> suitablePens;
     private boolean isPredator;
+    protected Classification classification;
 
     public Animal(ArrayList<PenType> suitablePens, String animalName, boolean isPredator){
         this.suitablePens = suitablePens;
@@ -31,4 +33,8 @@ public abstract class Animal {
     abstract public HashMap<String, Integer> getAvailableSpace();
 
     public boolean isPredator() { return isPredator; }
+
+    public Classification getClassification() {
+        return classification;
+    }
 }

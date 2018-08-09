@@ -17,8 +17,8 @@
               <TextArea fx:id="screenForUnassignedAnimals" layoutX="257.0" layoutY="250.0" prefHeight="99.0" prefWidth="486.0" />
               <TextArea fx:id="screenForUnassignedPens" layoutX="257.0" layoutY="400" prefHeight="99.0" prefWidth="486.0" />
               <Button fx:id="displayWeather" layoutX="441.0" layoutY="52.0" mnemonicParsing="false" onAction="#getWeather" text="Display Weather" />
-                <Button layoutX="750" layoutY="273.0" onAction="#autoAllocateAnimals" prefHeight="53.0" prefWidth="239.0" text="Auto allocate animals"/>
-                <Button layoutX="750" layoutY="423.0" onAction="#autoAllocatePens" prefHeight="53.0" prefWidth="239.0" text="Auto allocate pens"/>
+                <Button layoutX="750" layoutY="273.0" onAction="#autoAllocateAnimals" prefHeight="53.0" prefWidth="239.0" text="Auto allocate animals" />
+                <Button layoutX="750" layoutY="423.0" onAction="#autoAllocatePens" prefHeight="53.0" prefWidth="239.0" text="Auto allocate pens" />
               <Button layoutX="14.0" layoutY="423.0" onAction="#checkPensAreAssignedToStaff" prefHeight="53.0" prefWidth="239.0" text="Check pens are assigned to staff" />
               <Button layoutX="14.0" layoutY="273.0" onAction="#checkAnimalsAreAssignedToPens" prefHeight="53.0" prefWidth="239.0" text="Check animals are assigned to a pen">
                   <font>
@@ -27,7 +27,7 @@
         </AnchorPane>
       </content>
     </Tab>
-    <Tab text="Animals">
+    <Tab onSelectionChanged="#displayTableForAnimal" text="Animals">
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="541.0" prefWidth="887.0">
                   <ChoiceBox fx:id="Animals" layoutX="646.0" layoutY="23.0" onMousePressed="#displayChoicesForAnimals" prefWidth="150.0" />
             <TextArea fx:id="screenForAnimals" editable="false" layoutX="503.0" layoutY="118.0" prefHeight="556.0" prefWidth="435.0">
@@ -43,6 +43,7 @@
                <ChoiceBox fx:id="PenType2" layoutX="42.0" layoutY="261.0" onMousePressed="#displayChoicesForPenType" prefHeight="36.0" prefWidth="180.0" />
                <ChoiceBox fx:id="PredatorOrPrey" layoutX="42.0" layoutY="310.0" onMousePressed="#displayChoicesForPredatorOrPrey" prefHeight="36.0" prefWidth="180.0" />
                <TextArea fx:id="waterSpaceOrAirVolumeNeeded" layoutX="240.0" layoutY="84.0" prefHeight="42.0" prefWidth="185.0" promptText="Enter water volume or air volume needed m3" />
+            <TextArea fx:id="TableForAnimal" editable="false" layoutX="33.0" layoutY="377.0" prefHeight="300.0" prefWidth="435.0" />
         </AnchorPane>
     </Tab>
       <Tab text="Zoo Keepers">
@@ -52,9 +53,10 @@
                   <font>
                      <Font size="20.0" />
                   </font></TextArea>
-                  <Button layoutX="450.0" layoutY="74.0" mnemonicParsing="false" onAction="#displayValuesForZooKeepers" text="Show Keeper details" />
+                  <Button layoutX="409.0" layoutY="72.0" mnemonicParsing="false" onAction="#displayValuesForZooKeepers" text="Show Keeper details" />
                <ChoiceBox fx:id="PossiblePensForZooKeepers" layoutX="398.0" layoutY="562.0" onMousePressed="#pensZooKeepersAreResponsibleFor" prefWidth="150.0" />
                <Button layoutX="586.0" layoutY="526.0" mnemonicParsing="false" onAction="#assignPenToZooKeeper" prefHeight="99.0" prefWidth="196.0" text="Assign Pen to Zoo Keeper" />
+            <Button layoutX="330.0" layoutY="598.0" mnemonicParsing="false" onAction="#resetPensForZooKeeper" text="Reset Pens assigned to zoo keeper" />
               </AnchorPane>
       </Tab>
       <Tab text="Pens">
@@ -62,7 +64,7 @@
                <children>
                   <ChoiceBox fx:id="Pens" layoutX="673.0" layoutY="45.0" onMousePressed="#displayChoicesForPens" prefWidth="150.0" />
                   <TextArea fx:id="screenForPens" layoutX="576.0" layoutY="134.0" prefHeight="481.0" prefWidth="344.0" />
-                  <Button  layoutX="706.0" layoutY="84.0" mnemonicParsing="false" onAction="#displayValuesForPens" prefHeight="24.0" prefWidth="85.0" text="Submit" />
+                  <Button layoutX="706.0" layoutY="84.0" mnemonicParsing="false" onAction="#displayValuesForPens" prefHeight="24.0" prefWidth="85.0" text="Submit" />
                    <Button fx:id="AddPen" layoutX="258.0" layoutY="265.0" mnemonicParsing="false" onAction="#addPen" prefHeight="110.0" prefWidth="107.0" text="Add Pen" />
                    <TextArea fx:id="penName" layoutX="41.0" layoutY="84.0" prefHeight="42.0" prefWidth="185.0" promptText="Enter pen name" />
                    <TextArea fx:id="temp" layoutX="241.0" layoutY="200.0" prefHeight="42.0" prefWidth="185.0" promptText="Enter the temperature for the pen" />

@@ -9,6 +9,7 @@ import zoo.Animals.AnimalClassifications.LandAnimal;
 import zoo.Exceptions.UIException;
 import zoo.Pens.Pen;
 import zoo.Pens.PenInstances.*;
+import zoo.Pens.PenType;
 import zoo.Zoo.Zoo;
 
 import java.util.*;
@@ -125,7 +126,7 @@ public class ZooManager {
     }
 
     public static Zoo getZoo() {
-        return currentZoo;
+        return new Zoo(zooKeepers, animals, pens);
     }
 
     public static void assignAnimalToPen(Animal animalChoice, String penName) throws Throwable{
@@ -214,5 +215,9 @@ public class ZooManager {
             }
         }
         return pensNotAssignedToZooKeeper;
+    }
+
+    public static void resetPensForZooKeeper(ZooKeeper zooKeeper) throws Throwable {
+        getZooKeeper(zooKeeper).setPensResponsibleFor(new ArrayList<>());
     }
 }

@@ -6,7 +6,7 @@ import zoo.Exceptions.NotOfSamePredtoryStatusException;
 import zoo.Exceptions.NotSuitableForPenException;
 import zoo.Exceptions.NotEnoughSpaceException;
 import zoo.Exceptions.UIException;
-import zoo.PenType;
+import zoo.Pens.PenType;
 import zoo.Pens.Pen;
 
 public class Aquarium extends Pen {

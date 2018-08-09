@@ -1,6 +1,6 @@
 package zoo.Controllers;
 
-import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -11,6 +11,7 @@ import javafx.stage.Stage;
 import zoo.*;
 import zoo.Animals.Animal;
 import zoo.FileUtilities.FileUtilities;
+import zoo.Pens.PenType;
 import zoo.Zoo.Zoo;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -41,27 +42,13 @@ public class Controller{
     public TextArea screenForZooKeepers;
     public ChoiceBox<Animal> Animals;
     public ChoiceBox<String> Pens;
-    public ChoiceBox<zoo.PenType> PenType;
+    public ChoiceBox<zoo.Pens.PenType> PenType;
     public ChoiceBox<PenType> PenType2;
     public ChoiceBox<String> PossiblePensForZooKeepers;
-    public ChoiceBox<PenType> ZooKeeperPenType2;
     public TextArea screenForPens;
     public ChoiceBox<ZooKeeper> ZooKeepers;
-
-    public ZooKeeperController getZooKeeperController() {
-        return zooKeeperController;
-    }
-
+    public TextArea TableForAnimal;
     private ZooKeeperController zooKeeperController;
-
-    public AnimalsController getAnimalsController() {
-        return animalsController;
-    }
-
-    public PenController getPenController() {
-        return penController;
-    }
-
     private AnimalsController animalsController;
     private PenController penController;
 
@@ -82,7 +69,6 @@ public class Controller{
             else{
                 ZooManager.loadUpZoo(zoo);
             }
-
     }
 
     @FXML
@@ -92,7 +78,7 @@ public class Controller{
             weatherManager.run(this);
         }
         catch (Exception e){
-
+            //@todo
         }
     }
 
@@ -109,7 +95,7 @@ public class Controller{
     }
 
     @FXML
-    public void displayValuesForZooKeepers(ActionEvent actionEvent){
+    public void displayValuesForZooKeepers(){
         zooKeeperController.displayValuesForZooKeepers(2, ZooKeepers, screenForZooKeepers);
     }
 
@@ -160,7 +146,7 @@ public class Controller{
     }
 
     // assign animal to pen stuff
-    public void assignAnimalToPenPopUpWindowCreation(ActionEvent actionEvent) {
+    public void assignAnimalToPenPopUpWindowCreation() {
         // break down into create popUp
         Stage secondaryStage = new Stage();
         Parent root = null;
@@ -196,14 +182,14 @@ public class Controller{
         }
     }
 
-    public void assignPenToZooKeeper(ActionEvent actionEvent) {
+    public void assignPenToZooKeeper() {
         try {
             zooKeeperController.setPensResponsibleFor(ZooKeepers, PossiblePensForZooKeepers);
         }
         catch(Throwable throwable){
-// @todo
+
         }
-        this.displayValuesForZooKeepers(actionEvent);
+        this.displayValuesForZooKeepers();
     }
 
     public void checkAnimalsAreAssignedToPens() {
@@ -217,12 +203,26 @@ public class Controller{
     public void autoAllocatePens() {
         penController.autoAllocatePens(screenForUnassignedPens);
     }
-
+g
     public void autoAllocateAnimals() {
         animalsController.autoAllocateAnimals(screenForUnassignedAnimals);
     }
 
     public void displayChoicesForPredatorOrPrey() {
         animalsController.displayChoicesForAnimalOrPrey(PredatorOrPrey);
+    }
+
+    public void resetPensForZooKeeper() {
+        try {
+            zooKeeperController.resetPensForZooKeeper(ZooKeepers);
+            this.displayValuesForZooKeepers();
+        }
+        catch(Throwable uiException){
+            screenForZooKeepers.setText(uiException.toString());
+        }
+    }
+
+    public void displayTableForAnimal() {
+        animalsController.setTable(TableForAnimal);
     }
 }

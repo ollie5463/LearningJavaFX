@@ -1,12 +1,6 @@
 package test.Controllers;
 
 import org.junit.Test;
-import zoo.Controllers.AnimalsController;
-import zoo.Controllers.Controller;
-import zoo.PenType;
-import zoo.ZooManager;
-
-import java.util.ArrayList;
 
 
 public class AnimalControllerUTest {

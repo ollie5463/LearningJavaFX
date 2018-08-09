@@ -1,6 +1,8 @@
 package zoo;
 
 
+import zoo.Pens.PenType;
+
 import java.util.ArrayList;
 
 public class ZooKeeper {
@@ -24,6 +26,10 @@ public class ZooKeeper {
 
     public void setPensResponsibleFor(String pensResponsibleFor){
         this.pensResponsibleFor.add(pensResponsibleFor);
+    }
+
+    public void setPensResponsibleFor(ArrayList<String> pensResponsibleFor){
+        this.pensResponsibleFor = pensResponsibleFor;
     }
 
     public ArrayList<String> getPensResponsibleFor(){
