@@ -8,11 +8,11 @@ import java.util.ArrayList;
 
 public abstract class  Pen {
 
-    protected PenType penType;
+    private PenType penType;
     protected ArrayList<Animal> currentAnimals = new ArrayList<>();
     protected int noOfAnimals = 0;
     protected int length, width, temp;
-    protected String penName;
+    private String penName;
     private ZooKeeper currentZookeeper;
     protected boolean doesPenContainPredator;
 
@@ -65,13 +65,9 @@ public abstract class  Pen {
 
     public int getTemp() { return temp; }
 
-    public ArrayList<Animal> getCurrentAnimals() { return currentAnimals; }
-
     public int getWidth() { return this.width; }
 
     public int getLength() { return this.length; }
-
-    public int getNoOfAnimals() { return noOfAnimals; }
 
     public String getPenName() { return penName; }
 

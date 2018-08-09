@@ -18,8 +18,6 @@ public class ZooManager {
     private static ArrayList<ZooKeeper> zooKeepers = new ArrayList<>();
     private static ArrayList<Animal> animals = new ArrayList<>();
     private static ArrayList<Pen> pens = new ArrayList<>();
-    private static Zoo currentZoo;
-
 
     public static void createZooKeepers(){
 
@@ -115,11 +113,9 @@ public class ZooManager {
         createDefaultAnimals();
         createDefaultPens();
         createZooKeepers();
-        currentZoo = new Zoo(zooKeepers, animals, pens);
     }
 
     public static void loadUpZoo(Zoo zoo){
-        currentZoo = zoo;
         zooKeepers = zoo.getZooKeepers();
         animals = zoo.getAnimals();
         pens = zoo.getPens();
@@ -130,7 +126,6 @@ public class ZooManager {
     }
 
     public static void assignAnimalToPen(Animal animalChoice, String penName) throws Throwable{
-        // check that it can fit in the Pen
             Pen pen = getPen(penName);
             pen.addNewAnimal(animalChoice);
             animalChoice.setCurrentPen(penName);
@@ -145,8 +140,6 @@ public class ZooManager {
         }
         return animalsNotInPens;
     }
-
-    // think i assign the zookeeper to a pen, not the pen to a zoo keeper
     public static ArrayList<Pen> checkIfPensAreAssignedToStaff() {
         ArrayList<Pen> pensNotAssignedAZooKeeper = new ArrayList<>();
         for(Pen pen : pens){
@@ -163,7 +156,6 @@ public class ZooManager {
             getPen(possiblePensForZooKeepers.getValue()).setCurrentZookeeper(zooKeepers.getValue());
         }
         catch(Throwable penNotFound){
-
         }
     }
 

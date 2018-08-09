@@ -59,8 +59,6 @@ public class Controller{
 
     @FXML
     public void initialize(){
-        // @todo, you need to find a way to only initialise the zoo once because it now does it twice
-        // one when you load the first screen and once when you load the second
         Zoo zoo = FileManager.readFromFile();
             if(zoo == null){
                 ZooManager.createDefaultZoo();
@@ -77,7 +75,7 @@ public class Controller{
             weatherManager.run(this);
         }
         catch (Exception e){
-            //@todo
+
         }
     }
 
@@ -85,8 +83,6 @@ public class Controller{
     public void setWeather(ArrayList<Object> weather){
         ScreenForWeather.setText("The current temperature is: " + weather.get(0) + " This was accessed at " + weather.get(1));
     }
-
-    // Zoo keeper controller stuff
 
     @FXML
     public void displayChoicesForZooKeepers() {
@@ -97,10 +93,6 @@ public class Controller{
     public void displayValuesForZooKeepers(){
         zooKeeperController.displayValuesForZooKeepers(2, ZooKeepers, ScreenForZooKeepers);
     }
-
-
-    // end
-    // Pen controller stuff
 
     @FXML
     public void displayChoicesForPens() {
@@ -116,12 +108,10 @@ public class Controller{
         penController.displayValuesForPen(Pens, ScreenForPens, 4);
     }
 
+    @FXML
     public void addPen() {
         penController.addPen(PenTypeForPen, Width, HeightOrVolume, Length, PenName, Temp);
     }
-
-    // end
-    // Animals controller stuff
 
     @FXML
     public void displayChoicesForPenType(MouseEvent mouseEvent) {
@@ -138,15 +128,11 @@ public class Controller{
         animalsController.displayValuesForAnimals(Animals , ScreenForAnimals, 4);
     }
 
-    //    @Todo  BUG
     @FXML
     public void AddAnimal(){
         animalsController.addAnimal(PenType, PenType2, WaterSpaceOrAirVolumeNeeded, SpaceNeeded, ScreenForAnimals, AnimalType, PredatorOrPrey);
     }
-
-    // assign animal to pen stuff
     public void assignAnimalToPenPopUpWindowCreation() {
-        // break down into create popUp
         Stage secondaryStage = new Stage();
         Parent root = null;
         try {
@@ -171,7 +157,6 @@ public class Controller{
         animalsController.assignAnimalToPen(AnimalChoices, PenChoices, ScreenForAssigningAnimals);
     }
 
-    // zookeeper stuff
     public void pensZooKeepersAreResponsibleFor() {
         try {
             zooKeeperController.displayChoicesForPens(PossiblePensForZooKeepers, ZooKeepers);
@@ -201,12 +186,10 @@ public class Controller{
 
     public void autoAllocatePens() {
         penController.autoAllocatePens(ScreenForUnassignedPens);
-//        checkPensAreAssignedToStaff();
     }
 
     public void autoAllocateAnimals() {
         animalsController.autoAllocateAnimals(ScreenForUnassignedAnimals);
-//        checkAnimalsAreAssignedToPens();
     }
 
     public void displayChoicesForPredatorOrPrey() {

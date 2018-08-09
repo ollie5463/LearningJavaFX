@@ -72,8 +72,8 @@ public class ZooKeeperController {
 
     public void displayChoicesForPens(ChoiceBox<String> possiblePensForZooKeepers, ChoiceBox<ZooKeeper> zooKeepers)throws NullPointerException{
         ObservableList<String> listOfPens = FXCollections.observableArrayList();
-        ArrayList<PenType> possiblePenTypes = getZooKeeper(zooKeepers).getPenTypesResponsibleFor(); // possible pen types for ZK
-        ArrayList<Pen> pens =ZooManager.getPens();// gets the possible pens
+        ArrayList<PenType> possiblePenTypes = getZooKeeper(zooKeepers).getPenTypesResponsibleFor();
+        ArrayList<Pen> pens =ZooManager.getPens();
         for(PenType penType : possiblePenTypes){
             for(Pen pen : pens){
                 if(penType.equals(pen.getPenType())){

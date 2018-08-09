@@ -20,10 +20,6 @@ public class ZooKeeper {
         return this.name ;
     }
 
-    public String getName(){
-        return this.name;
-    }
-
     public void setPensResponsibleFor(String pensResponsibleFor){
         this.pensResponsibleFor.add(pensResponsibleFor);
     }
